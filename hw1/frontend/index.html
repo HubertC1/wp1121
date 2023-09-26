@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Diaries</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="index.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+      integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div id="top-part">
+      <h1>My Diaries</h1>
+      <button id="add-diary" tabindex="3">add diary</button>
+    </div>
+    <br>
+    <dialog id="edit-window">
+      <h2>Edit Diary</h2>
+      <!-- <h3>Date:</h3> -->
+      <label for="diary-date">Date:</label>
+      <input type="date" id="diary-date" name="diary-date">
+      <br>
+      <label for="topic">Topic:</label>
+      <select id="topic">
+        <option value="unselected">Unselected</option>
+        <option value="schoolwork">Schoolwork</option>
+        <option value="social">Social</option>
+        <option value="club">Club</option>
+      </select>
+      <br>
+      <label for="mood">Mood:</label>
+      <select id="mood">
+        <option value="unselected">Unselected</option>
+        <option value="happy">Happy</option>
+        <option value="angry">Angry</option>
+        <option value="sad">Sad</option>
+      </select>
+      <br><br>
+      <textarea id="diary-input" cols="80" rows="5"></textarea>
+      <br>
+      <button id="cancel-edit" tabindex="3">cancel</button>
+      <button id="close-edit" tabindex="3">save</button>
+    </dialog>
+    <dialog id="inspect-window">
+
+      <h3>_____________________________Inspect Diary_____________________________</h3>
+      <h3>Date:</h3>
+      <p id = "inspect-date">date</p>
+      <h3>Topic:</h3>
+      <p id = "inspect-topic">topic</p>
+      <h3>Mood:</h3>
+      <p id = "inspect-mood">mood</p>
+      <h3>Content:</h3>
+      <p id="inspect-content">content</p>
+      <button data-id="" id="inspect-edit">edit</button>
+      <button id="inspect-close">close</button>
+    </dialog>
+    <section id="diaries"></section>
+  </body>
+
+  <template id="diary-template">
+      <div class="diary-item" data-id="">
+        <p class="diary-date">diary date</p>
+        <p class="topic">diary topic</p>
+        <p class="mood">diary mood</p>
+        <p class="outline">diary outline</p>
+        <button data-id="" class="inspect-diary">inspect</button>
+        <button data-id="" class="delete-diary">delete</button>
+      </div>
+  </template>
+</html>
