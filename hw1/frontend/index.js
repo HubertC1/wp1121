@@ -37,6 +37,7 @@ function setupEventListeners() {
     let date = myDate.getDate();
     let day = myDate.getDay();
     if (month<10){
+      month = month+1;
       month = "0" + month;
     }
     if (date<10){
@@ -55,13 +56,33 @@ function setupEventListeners() {
     const content = diaryInput.value;
     // const date = new Date();
     // console.log(diaryDate.value);
-    let myDate = new Date();
-    let day = myDate.getDay();
+    
+    
     let date;
     let topic;
     let mood; 
     date = document.querySelector("#diary-date").value;
+    console.log(date);
+    // let myDate = new Date();
+    let myDate = new Date(date.substring(0,4), date.substring(5,7)-1, date.substring(8));
+    let day = myDate.getDay();
+    console.log(day);
     // date = date + "-" + day;
+    if (day === 1){
+      date = date + " MON";
+    }else if (day === 2){
+      date = date + " TUE";
+    }else if (day === 3){
+      date = date + " WED";
+    }else if (day === 4){
+      date = date + " THU";
+    }else if (day === 5){
+      date = date + " FRI";
+    }else if (day === 6){
+      date = date + " SAT";
+    }else if (day === 7){
+      date = date + " SUN";
+    }
     // console.log(date);
     topic = document.querySelector("#topic").value;
     if (topic === "unselected"){
@@ -199,7 +220,7 @@ function createDiaryElement(diary) {
   inspectEditButton.addEventListener("click", ()=>{
     const editWindow = document.querySelector("#edit-window");
     inspect_window.close();
-    document.querySelector("#diary-date").value = inspecting.date;
+    document.querySelector("#diary-date").value = inspecting.date.substring(0,10);
     document.querySelector("#topic").value = inspecting.topic;
     document.querySelector("#mood").value = inspecting.mood;
     document.querySelector("#diary-input").value = inspecting.content;
