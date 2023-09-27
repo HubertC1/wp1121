@@ -8,24 +8,6 @@ const instance = axios.create({
   baseURL: "http://localhost:8000/api",
 });
 
-// const instance = {
-//   "diaries": [
-//      {
-//         "id": "01",
-//         "language": "Java",
-//         "edition": "third",
-//         "author": "Herbert Schildt"
-//      },
-
-//      {
-//         "id": "07",
-//         "language": "C++",
-//         "edition": "second",
-//         "author": "E.Balagurusamy"
-//      }
-
-//   ]
-// }
 
 async function main() {
   setupEventListeners();  
@@ -46,12 +28,14 @@ function setupEventListeners() {
   const topicInput = document.querySelector("#topic");
   const diaryDate = document.querySelector("#diary-date");
   const editWindow = document.querySelector("#edit-window");
+  const searchButton = document.querySelector("#search-button");
   addDiaryButton.addEventListener("click", async () => {
     inspecting = -1;
     let myDate = new Date();
     let year = myDate.getFullYear();
     let month = myDate.getMonth();
     let date = myDate.getDate();
+    let day = myDate.getDay();
     if (month<10){
       month = "0" + month;
     }
@@ -71,10 +55,13 @@ function setupEventListeners() {
     const content = diaryInput.value;
     // const date = new Date();
     // console.log(diaryDate.value);
+    let myDate = new Date();
+    let day = myDate.getDay();
     let date;
     let topic;
     let mood; 
     date = document.querySelector("#diary-date").value;
+    // date = date + "-" + day;
     // console.log(date);
     topic = document.querySelector("#topic").value;
     if (topic === "unselected"){
@@ -124,6 +111,44 @@ function setupEventListeners() {
   });
   cancelButton.addEventListener("click", async()=>{
     editWindow.close();
+  });
+
+  searchButton.addEventListener("click", async()=>{
+    const diaries = await getDiaries();
+    while (diaryList.firstChild){
+      diaryList.removeChild(diaryList.firstChild);
+    }
+    const searchTopic = document.querySelector("#searchTopic").value;
+    const searchMood = document.querySelector("#searchMood" ).value;
+    if (searchTopic === "all" && searchMood === "all"){
+      diaries.forEach((diary)=>{
+        diaryList.appendChild(createDiaryElement(diary));
+        console.log("fuck!");
+      });
+      
+    }else if (searchTopic !== "all" && searchMood === "all"){
+      // for i in diaryList, redner with topic
+      diaries.forEach((diary)=>{
+        if (diary.topic === searchTopic){
+          diaryList.appendChild(createDiaryElement(diary));
+        }
+      });
+
+    }else if (searchTopic === "all" && searchMood !== "all"){
+      // for i in diaryList, redner with mood
+      diaries.forEach((diary)=>{
+        if (diary.mood === searchMood){
+          diaryList.appendChild(createDiaryElement(diary));
+        }
+      });
+    }else{
+      // for i in diaryList, redner with topic && mood
+      diaries.forEach((diary)=>{
+        if (diary.mood === searchMood && diary.topic === searchTopic){
+          diaryList.appendChild(createDiaryElement(diary));
+        }
+      });
+    }
   })
 }
 

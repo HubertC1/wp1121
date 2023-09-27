@@ -16,6 +16,21 @@
       <h1>My Diaries</h1>
       <button id="add-diary" tabindex="3">add diary</button>
     </div>
+    <label for="searchTopic">Topic:</label>
+    <select id="searchTopic">
+      <option value="all">All</option>
+      <option value="schoolwork">Schoolwork</option>
+      <option value="social">Social</option>
+      <option value="club">Club</option>
+    </select>
+    <label for="searchMood">Mood:</label>
+    <select id="searchMood">
+      <option value="all">All</option>
+      <option value="happy">Happy</option>
+      <option value="angry">Angry</option>
+      <option value="sad">Sad</option>
+    </select>
+    <button id="search-button">Search</button>
     <br>
     <dialog id="edit-window">
       <h2>Edit Diary</h2>
@@ -64,6 +79,7 @@
   <template id="diary-template">
       <div class="diary-item" data-id="">
         <p class="diary-date">diary date</p>
+        <p class = "diary-day">diary day</p>
         <p class="topic">diary topic</p>
         <p class="mood">diary mood</p>
         <p class="outline">diary outline</p>
