@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +16,9 @@ import { deleteList, updateList } from "@/utils/client";
 import Card from "./Card";
 import type { CardProps } from "./Card";
 import CardDialog from "./CardDialog";
+import ListDialog  from "./ListDialog";
+
+import imageToAdd from "../../images/edSheeran.jpeg"
 
 export type CardListProps = {
   id: string;
@@ -25,7 +28,8 @@ export type CardListProps = {
 };
 
 export default function CardList({ id, name, cards, deleting }: CardListProps) {
-  const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
+  // const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
+  const [openListDialog, setOpenListDialog] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const { fetchLists } = useCards();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -89,8 +93,17 @@ export default function CardList({ id, name, cards, deleting }: CardListProps) {
             )}
           </div>
         </div>
+        <img src={imageToAdd} alt="cover" onClick={()=>setOpenListDialog(true)}/>
+
         <Divider variant="middle" sx={{ mt: 1, mb: 2 }} />
-        <div className="flex flex-col gap-4">
+        <ListDialog 
+          open = {openListDialog}
+          onClose = {()=>setOpenListDialog(false)}
+          listId={id}
+          cards = {cards}
+          name = {name}
+        />
+        {/* <div className="flex flex-col gap-4">
           {cards.map((card) => (
             <Card key={card.id} {...card} />
           ))}
@@ -101,14 +114,14 @@ export default function CardList({ id, name, cards, deleting }: CardListProps) {
             <AddIcon className="mr-2" />
             Add a card
           </Button>
-        </div>
+        </div> */}
       </Paper>
-      <CardDialog
+      {/* <CardDialog
         variant="new"
         open={openNewCardDialog}
         onClose={() => setOpenNewCardDialog(false)}
         listId={id}
-      />
+      /> */}
     </>
   );
 }

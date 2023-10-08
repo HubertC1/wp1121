@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { Add as AddIcon } from "@mui/icons-material";
+import { RemoveCircleOutlineOutlined as DeleteIcon } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import  Typography  from "@mui/material/Typography";
+import {Grid} from "@mui/material";
+import {Divider} from "@mui/material";
 
 import CardList from "@/components/CardList";
 import HeaderBar from "@/components/HeaderBar";
@@ -21,9 +25,9 @@ function App() {
   return (
     <>
       <HeaderBar />
-      <main className="mx-auto flex max-h-full flex-row gap-6 px-24 py-12">
+      <main>
         <div>
-          <h1>My Playlist</h1>
+          <Typography variant="h1">{"My Playlist"}</Typography>
           <Button
             variant="contained"
             className="w-80"
@@ -45,7 +49,7 @@ function App() {
               }
             }}
           >
-            <AddIcon className="mr-2" />
+            <DeleteIcon className="mr-2" />
             {deletingList?(
               "Done"
             ):(
@@ -54,13 +58,20 @@ function App() {
             }
           </Button>
         </div>
+
+        {/* <Divider/> */}
+        <Grid container spacing = {4}>
         {lists.map((list) => (
-          <CardList key={list.id} {...list} deleting={deletingList} />
+          <Grid item>
+            <CardList key={list.id} {...list} deleting={deletingList} />
+          </Grid>
         ))}
+        </Grid>
         <NewListDialog
           open={newListDialogOpen}
           onClose={() => setNewListDialogOpen(false)}
         />
+
       </main>
     </>
   );
