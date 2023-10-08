@@ -61,7 +61,9 @@ export default function CardList({ id, name, cards, deleting }: CardListProps) {
   return (
     <>
       <Paper className="w-80 p-6">
+        <Typography variant="h4" color="#7FFFD4">{cards.length} songs</Typography>
         <div className="flex gap-4">
+          
           {editingName ? (
             <ClickAwayListener onClickAway={handleUpdateName}>
               <Input
@@ -82,6 +84,8 @@ export default function CardList({ id, name, cards, deleting }: CardListProps) {
                 {name}
               </Typography>
             </button>
+
+
           )}
           <div className="grid place-items-center">
             {deleting?(

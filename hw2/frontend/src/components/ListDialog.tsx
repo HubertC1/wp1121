@@ -12,6 +12,7 @@ import Input from "@mui/material/Input";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 // import {
 //   Dialog,
 //   DialogHeader,
@@ -66,12 +67,15 @@ export default function ListDialog(props: ListDialogProps){
     return(
       
       <Dialog open={open} onClose={onClose} fullScreen={true}>
-        <Typography variant="h1">{name}</Typography>
-        <img src= {imageToAdd} width="25%"></img>
-        <div className="flex flex-col gap-4">
-          {cards.map((card) => (
-            <Card key={card.id} {...card} />
-          ))}
+        <main className="mx-auto flex max-h-full flex-row gap-6 px-24 py-12">
+          <img src= {imageToAdd} width="25%"></img>
+          <main>
+            <Typography variant="h1" color = "#7FFFD4">{name}</Typography>
+            
+          </main>
+        </main>
+        
+        <div className="flex flex-col gap-4 px-24">
           <Button
             variant="contained"
             onClick={() => setOpenNewCardDialog(true)}
@@ -87,6 +91,11 @@ export default function ListDialog(props: ListDialogProps){
             Close
           </Button>
         </div>
+        <Grid container spacing={2}>
+          {cards.map((card) => (
+            <Card key={card.id} {...card} />
+          ))}
+        </Grid>
         <CardDialog
           variant="new"
           open={openNewCardDialog}

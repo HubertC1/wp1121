@@ -27,7 +27,7 @@ function App() {
       <HeaderBar />
       <main>
         <div>
-          <Typography variant="h1">{"My Playlist"}</Typography>
+          <Typography variant="h1" color={"#7FFFD4"}>{"My Playlist"}</Typography>
           <Button
             variant="contained"
             className="w-80"
@@ -59,7 +59,7 @@ function App() {
           </Button>
         </div>
 
-        {/* <Divider/> */}
+
         <Grid container spacing = {4}>
         {lists.map((list) => (
           <Grid item>
