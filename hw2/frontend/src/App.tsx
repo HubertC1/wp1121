@@ -37,14 +37,25 @@ function App() {
           <Button
             variant="contained"
             className="w-80"
-            onClick={() => setDeletingList(true)}
+            onClick={() => {
+              if (deletingList){
+                setDeletingList(false);
+              }else{
+                setDeletingList(true);
+              }
+            }}
           >
             <AddIcon className="mr-2" />
-            Delete
+            {deletingList?(
+              "Done"
+            ):(
+              "Delete"
+            )
+            }
           </Button>
         </div>
         {lists.map((list) => (
-          <CardList key={list.id} {...list} />
+          <CardList key={list.id} {...list} deleting={deletingList} />
         ))}
         <NewListDialog
           open={newListDialogOpen}
