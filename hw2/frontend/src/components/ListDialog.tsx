@@ -44,6 +44,9 @@ const theme = createTheme({
   palette: {
     primary:{
       main: "#7FFFD4"
+    },
+    secondary:{
+      main:"#DC143C"
     }
   }
 })
@@ -71,12 +74,34 @@ type ListDialogProps = {
 //*
 // type CardDialogProps = NewCardDialogProps | EditCardDialogProps;
 
-export default function ListDialog({open, onClose, id, cards, name, description}: ListDialogProps){
+export default function ListDialog({open, onClose,id, cards, name, description}: ListDialogProps){
     // const {open, onClose, id, cards, name, description} = props;
     const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
     const [editingDescription, setEditingDescription] = useState(false);
+    const [editingName, setEditingName] = useState(false);
+    const inputRef0 = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const {fetchLists} = useCards();
+
+    const deleteSelected = async () =>{
+      
+    }
+    const handleUpdateName = async () => {
+      if (!inputRef0.current) return;
+  
+      const newName = inputRef0.current.value;
+      if (newName !== name) {
+        try {
+          console.log(id);
+          await updateList(id, { name: newName });
+          fetchLists();
+        } catch (error) {
+          alert("Error: Failed to update list name");
+        }
+      }
+      setEditingName(false);
+    };
+
     const handleUpdateDescription = async () => {
       
       if (!inputRef.current) return;
@@ -100,15 +125,35 @@ export default function ListDialog({open, onClose, id, cards, name, description}
       <Dialog open={open} onClose={onClose} fullScreen={true}>
         <main className="mx-auto flex max-h-full flex-row gap-6 px-24 py-12">
           <img src= {imageToAdd} width="25%"></img>
-          <main>
-            <Typography variant="h1" color = "#7FFFD4">{name}</Typography>
+          <main className="flex max-w-full flex-col">
+            {
+              editingName?(
+                <ClickAwayListener onClickAway={handleUpdateName}>
+                <Input
+                  autoFocus
+                  defaultValue={name}
+                  className=""
+                  placeholder="Enter a description for this list..."
+                  sx={{ fontSize: "6rem" }}
+                  inputRef={inputRef0}
+                />
+                
+                </ClickAwayListener>
+              ):(
+                <Button
+                  onClick={() => setEditingName(true)}
+                >
+                  <Typography variant="h1" color = "#7FFFD4" align="left">{name}</Typography>
+                </Button>
+              )
+            }
             {
               editingDescription?(
                 <ClickAwayListener onClickAway={handleUpdateDescription}>
                 <Input
                   autoFocus
                   defaultValue={description}
-                  className="grow"
+                  className=""
                   placeholder="Enter a description for this list..."
                   sx={{ fontSize: "2rem" }}
                   inputRef={inputRef}
@@ -148,6 +193,16 @@ export default function ListDialog({open, onClose, id, cards, name, description}
               >
                 {/* <AddIcon className="mr-2" /> */}
                 Close
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={() => {onClose()}}
+                className="w-40"
+                color = "secondary"
+              >
+                Delete
               </Button>
             </Grid>
           </Grid>
