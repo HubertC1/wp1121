@@ -1,19 +1,20 @@
 import { useRef, useState } from "react";
 
-import { Delete as DeleteIcon, Description } from "@mui/icons-material";
+// import { Delete as DeleteIcon, Description } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import IconButton from "@mui/material/IconButton";
+// import DialogActions from "@mui/material/DialogActions";
+// import DialogContent from "@mui/material/DialogContent";
+// import DialogTitle from "@mui/material/DialogTitle";
+// import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+// import MenuItem from "@mui/material/MenuItem";
+// import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import { Checkbox, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
+
 // import {
 //   Dialog,
 //   DialogHeader,
@@ -25,8 +26,8 @@ import Card from "./Card";
 import type { CardProps } from "./Card";
 import CardDialog from "./CardDialog";
 import useCards from "@/hooks/useCards";
-import { createCard, deleteCard, updateCard } from "@/utils/client";
-import { deleteList, updateList } from "@/utils/client";
+import {  deleteCard } from "@/utils/client";
+import {  updateList } from "@/utils/client";
 
 import imageToAdd from "../../images/edSheeran.jpeg"
 // this pattern is called discriminated type unions
@@ -224,13 +225,11 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
             </Grid>
           </Grid>
         </ThemeProvider>
-        <Grid container spacing={2} className="py-12 px-24">
+        <div className="flex flex-col py-12 px-24">
           {cards.map((card) => (
-            <Grid item>
               <Card key={card.id} {...card} onCardCheck={toggleItemSelection} />
-            </Grid>
           ))}
-        </Grid>
+        </div>
         <CardDialog
           variant="new"
           open={openNewCardDialog}

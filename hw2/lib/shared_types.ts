@@ -13,6 +13,8 @@ export type CardData = {
   id: string;
   title: string;
   description: string;
+  singer: string;
+  url: string;
   list_id: string;
 };
 

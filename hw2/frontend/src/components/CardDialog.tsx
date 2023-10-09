@@ -24,6 +24,8 @@ type NewCardDialogProps = {
   open: boolean;
   onClose: () => void;
   listId: string;
+  singer: string;
+  url: string;
 };
 
 type EditCardDialogProps = {
@@ -33,6 +35,8 @@ type EditCardDialogProps = {
   listId: string;
   cardId: string;
   title: string;
+  singer: string;
+  url: string;
   description: string;
 };
 
@@ -42,11 +46,15 @@ export default function CardDialog(props: CardDialogProps) {
   const { variant, open, onClose, listId } = props;
   const title = variant === "edit" ? props.title : "";
   const description = variant === "edit" ? props.description : "";
+  const singer = variant === "edit" ? props.singer :"";
+  const url = variant === "edit" ? props.url:"";
 
   const [editingTitle, setEditingTitle] = useState(variant === "new");
   const [editingDescription, setEditingDescription] = useState(
     variant === "new",
   );
+  const [editingSinger, setEditingSinger] = useState(variant === "new");
+  const [editingUrl, setEditingUrl] = useState(variant === "new");
 
   // using a state variable to store the value of the input, and update it on change is another way to get the value of a input
   // however, this method is not recommended for large forms, as it will cause a re-render on every change
@@ -54,6 +62,8 @@ export default function CardDialog(props: CardDialogProps) {
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const [newListId, setNewListId] = useState(listId);
+  const [newSinger, setNewSinger] = useState(singer);
+  const [newUrl, setNewUrl] = useState(url);
 
   const { lists, fetchCards } = useCards();
 
@@ -63,6 +73,8 @@ export default function CardDialog(props: CardDialogProps) {
       setNewTitle(title);
       setNewDescription(description);
       setNewListId(listId);
+      setNewSinger(singer);
+      setNewUrl(url);
     }
   };
 
@@ -73,12 +85,17 @@ export default function CardDialog(props: CardDialogProps) {
           title: newTitle,
           description: newDescription,
           list_id: listId,
+          singer: newSinger,
+          url: newUrl
+
         });
       } else {
         if (
           newTitle === title &&
           newDescription === description &&
-          newListId === listId
+          newListId === listId &&
+          newSinger === singer &&
+          newUrl === url
         ) {
           return;
         }
@@ -88,6 +105,8 @@ export default function CardDialog(props: CardDialogProps) {
           title: newTitle,
           description: newDescription,
           list_id: newListId,
+          singer: newSinger,
+          url: newUrl
         });
       }
       fetchCards();
@@ -178,6 +197,54 @@ export default function CardDialog(props: CardDialogProps) {
             className="w-full rounded-md p-2 hover:bg-white/10"
           >
             <Typography className="text-start">{newDescription}</Typography>
+          </button>
+        )}
+        {editingSinger ? (
+          <ClickAwayListener
+            onClickAway={() => {
+              if (variant === "edit") {
+                setEditingSinger(false);
+              }
+            }}
+          >
+            <Input
+              autoFocus
+              defaultValue={singer}
+              onChange={(e) => setNewSinger(e.target.value)}
+              className="grow"
+              placeholder="Enter a singer..."
+            />
+          </ClickAwayListener>
+        ) : (
+          <button
+            onClick={() => setEditingSinger(true)}
+            className="w-full rounded-md p-2 hover:bg-white/10"
+          >
+            <Typography className="text-start">{newSinger}</Typography>
+          </button>
+        )}
+        {editingUrl ? (
+          <ClickAwayListener
+            onClickAway={() => {
+              if (variant === "edit") {
+                setEditingUrl(false);
+              }
+            }}
+          >
+            <Input
+              autoFocus
+              defaultValue={url}
+              onChange={(e) => setNewUrl(e.target.value)}
+              className="grow"
+              placeholder="url of the MV..."
+            />
+          </ClickAwayListener>
+        ) : (
+          <button
+            onClick={() => setEditingUrl(true)}
+            className="w-full rounded-md p-2 hover:bg-white/10"
+          >
+            <Typography className="text-start">{newUrl}</Typography>
           </button>
         )}
         <DialogActions>
