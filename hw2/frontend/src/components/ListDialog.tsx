@@ -94,6 +94,10 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
     };
 
     const deleteCheckedCards = async() =>{
+      if (selectedItems.length === 0){
+        alert("No cards selected!");
+        return;
+      }
       for (let i = 0; i<selectedItems.length; ++i){
         try{
           await deleteCard(selectedItems[i]);
