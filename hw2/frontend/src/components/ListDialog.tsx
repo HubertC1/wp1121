@@ -79,13 +79,30 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
     const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
     const [editingDescription, setEditingDescription] = useState(false);
     const [editingName, setEditingName] = useState(false);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const inputRef0 = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const {fetchLists} = useCards();
+    const {fetchLists, fetchCards} = useCards();
 
-    const deleteSelected = async () =>{
-      
+    const toggleItemSelection = (itemId: string) =>{
+      if (selectedItems.includes(itemId)) {
+        setSelectedItems(selectedItems.filter((id) => id !== itemId));
+      } else {
+        setSelectedItems([...selectedItems, itemId]);
+      }
+    };
+
+    const deleteCheckedCards = async() =>{
+      for (let i = 0; i<selectedItems.length; ++i){
+        try{
+          await deleteCard(selectedItems[i]);
+          fetchCards();
+        }catch (error){
+          // alert("Error: Failed to delete cards");
+        }
+      }
     }
+
     const handleUpdateName = async () => {
       if (!inputRef0.current) return;
   
@@ -198,7 +215,7 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
             <Grid item>
               <Button
                 variant="contained"
-                onClick={() => {onClose()}}
+                onClick={() => {deleteCheckedCards()}}
                 className="w-40"
                 color = "secondary"
               >
@@ -210,8 +227,7 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
         <Grid container spacing={2} className="py-12 px-24">
           {cards.map((card) => (
             <Grid item>
-              <Checkbox/>
-              <Card key={card.id} {...card} />
+              <Card key={card.id} {...card} onCardCheck={toggleItemSelection} />
             </Grid>
           ))}
         </Grid>
@@ -225,153 +241,4 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
     )
 }
 
-// export default function CardDialog(props: CardDialogProps) {
-//   const { variant, open, onClose, listId } = props;
-//   const title = variant === "edit" ? props.title : "";
-//   const description = variant === "edit" ? props.description : "";
 
-//   const [editingTitle, setEditingTitle] = useState(variant === "new");
-//   const [editingDescription, setEditingDescription] = useState(
-//     variant === "new",
-//   );
-
-//   // using a state variable to store the value of the input, and update it on change is another way to get the value of a input
-//   // however, this method is not recommended for large forms, as it will cause a re-render on every change
-//   // you can read more about it here: https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable
-//   const [newTitle, setNewTitle] = useState(title);
-//   const [newDescription, setNewDescription] = useState(description);
-//   const [newListId, setNewListId] = useState(listId);
-
-//   const { lists, fetchCards } = useCards();
-
-//   const handleClose = () => {
-//     onClose();
-//     if (variant === "edit") {
-//       setNewTitle(title);
-//       setNewDescription(description);
-//       setNewListId(listId);
-//     }
-//   };
-
-//   const handleSave = async () => {
-//     try {
-//       if (variant === "new") {
-//         await createCard({
-//           title: newTitle,
-//           description: newDescription,
-//           list_id: listId,
-//         });
-//       } else {
-//         if (
-//           newTitle === title &&
-//           newDescription === description &&
-//           newListId === listId
-//         ) {
-//           return;
-//         }
-//         // typescript is smart enough to know that if variant is not "new", then it must be "edit"
-//         // therefore props.cardId is a valid value
-//         await updateCard(props.cardId, {
-//           title: newTitle,
-//           description: newDescription,
-//           list_id: newListId,
-//         });
-//       }
-//       fetchCards();
-//     } catch (error) {
-//       alert("Error: Failed to save card");
-//     } finally {
-//       handleClose();
-//     }
-//   };
-
-//   const handleDelete = async () => {
-//     if (variant !== "edit") {
-//       return;
-//     }
-//     try {
-//       await deleteCard(props.cardId);
-//       fetchCards();
-//     } catch (error) {
-//       alert("Error: Failed to delete card");
-//     } finally {
-//       handleClose();
-//     }
-//   };
-
-//   return (
-//     <Dialog open={open} onClose={handleClose}>
-//       <DialogTitle className="flex gap-4">
-//         {editingTitle ? (
-//           <ClickAwayListener
-//             onClickAway={() => {
-//               if (variant === "edit") {
-//                 setEditingTitle(false);
-//               }
-//             }}
-//           >
-//             <Input
-//               autoFocus
-//               defaultValue={title}
-//               onChange={(e) => setNewTitle(e.target.value)}
-//               className="grow"
-//               placeholder="Enter a title for this card..."
-//             />
-//           </ClickAwayListener>
-//         ) : (
-//           <button
-//             onClick={() => setEditingTitle(true)}
-//             className="w-full rounded-md p-2 hover:bg-white/10"
-//           >
-//             <Typography className="text-start">{newTitle}</Typography>
-//           </button>
-//         )}
-//         <Select
-//           value={newListId}
-//           onChange={(e) => setNewListId(e.target.value)}
-//         >
-//           {lists.map((list) => (
-//             <MenuItem value={list.id} key={list.id}>
-//               {list.name}
-//             </MenuItem>
-//           ))}
-//         </Select>
-//         {variant === "edit" && (
-//           <IconButton color="error" onClick={handleDelete}>
-//             <DeleteIcon />
-//           </IconButton>
-//         )}
-//       </DialogTitle>
-//       <DialogContent className="w-[600px]">
-//         {editingDescription ? (
-//           <ClickAwayListener
-//             onClickAway={() => {
-//               if (variant === "edit") {
-//                 setEditingDescription(false);
-//               }
-//             }}
-//           >
-//             <textarea
-//               className="bg-white/0 p-2"
-//               autoFocus
-//               defaultValue={description}
-//               placeholder="Add a more detailed description..."
-//               onChange={(e) => setNewDescription(e.target.value)}
-//             />
-//           </ClickAwayListener>
-//         ) : (
-//           <button
-//             onClick={() => setEditingDescription(true)}
-//             className="w-full rounded-md p-2 hover:bg-white/10"
-//           >
-//             <Typography className="text-start">{newDescription}</Typography>
-//           </button>
-//         )}
-//         <DialogActions>
-//           <Button onClick={handleSave}>save</Button>
-//           <Button onClick={handleClose}>close</Button>
-//         </DialogActions>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// }
