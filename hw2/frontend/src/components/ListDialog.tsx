@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-import { Delete as DeleteIcon } from "@mui/icons-material";
+import { Delete as DeleteIcon, Description } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Dialog from "@mui/material/Dialog";
@@ -12,7 +12,8 @@ import Input from "@mui/material/Input";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
+import { Checkbox, Grid } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 // import {
 //   Dialog,
 //   DialogHeader,
@@ -25,6 +26,7 @@ import type { CardProps } from "./Card";
 import CardDialog from "./CardDialog";
 import useCards from "@/hooks/useCards";
 import { createCard, deleteCard, updateCard } from "@/utils/client";
+import { deleteList, updateList } from "@/utils/client";
 
 import imageToAdd from "../../images/edSheeran.jpeg"
 // this pattern is called discriminated type unions
@@ -38,13 +40,21 @@ import imageToAdd from "../../images/edSheeran.jpeg"
 //   onClose: () => void;
 //   listId: string;
 // };
+const theme = createTheme({
+  palette: {
+    primary:{
+      main: "#7FFFD4"
+    }
+  }
+})
 
 type ListDialogProps = {
     open: boolean;
     onClose: () => void;
-    listId: string;
+    id: string;
     cards: CardProps[];
     name: string;
+    description: string;
 }
 
 //*
@@ -61,53 +71,101 @@ type ListDialogProps = {
 //*
 // type CardDialogProps = NewCardDialogProps | EditCardDialogProps;
 
-export default function ListDialog(props: ListDialogProps){
-    const {open, onClose, listId, cards, name} = props;
+export default function ListDialog({open, onClose, id, cards, name, description}: ListDialogProps){
+    // const {open, onClose, id, cards, name, description} = props;
     const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
-    return(
+    const [editingDescription, setEditingDescription] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const {fetchLists} = useCards();
+    const handleUpdateDescription = async () => {
       
+      if (!inputRef.current) return;
+  
+      const newDescription = inputRef.current.value;
+      if (newDescription !== description) {
+        
+        try {
+          console.log("fuck your mom");
+          console.log(id);
+          await updateList(id, {description : newDescription });
+          fetchLists();
+        } catch (error) {
+          alert("Error: Failed to update list name");
+        }
+      }
+      setEditingDescription(false);
+    };
+    return(
+    
       <Dialog open={open} onClose={onClose} fullScreen={true}>
         <main className="mx-auto flex max-h-full flex-row gap-6 px-24 py-12">
           <img src= {imageToAdd} width="25%"></img>
           <main>
             <Typography variant="h1" color = "#7FFFD4">{name}</Typography>
-            
+            {
+              editingDescription?(
+                <ClickAwayListener onClickAway={handleUpdateDescription}>
+                <Input
+                  autoFocus
+                  defaultValue={description}
+                  className="grow"
+                  placeholder="Enter a description for this list..."
+                  sx={{ fontSize: "2rem" }}
+                  inputRef={inputRef}
+                />
+                </ClickAwayListener>
+              ):(
+                <Button
+                  onClick={() => setEditingDescription(true)}
+                >
+                  <Typography className="text-start" variant="h4">
+                    {description}
+                  </Typography>
+                </Button>
+              )
+            }
           </main>
         </main>
-        
-        <div className="flex flex-col gap-4 px-24">
-          <Button
-            variant="contained"
-            onClick={() => setOpenNewCardDialog(true)}
-          >
-            {/* <AddIcon className="mr-2" /> */}
-            Add a card
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {onClose()}}
-          >
-            {/* <AddIcon className="mr-2" /> */}
-            Close
-          </Button>
-        </div>
-        <Grid container spacing={2}>
+        <ThemeProvider theme={theme}>
+          <Grid container spacing={2} className="px-24">
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={() => setOpenNewCardDialog(true)}
+                className="w-40"
+                color = "primary"
+              >
+                {/* <AddIcon className="mr-2" /> */}
+                Add a card
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={() => {onClose()}}
+                className="w-40"
+                color = "primary"
+              >
+                {/* <AddIcon className="mr-2" /> */}
+                Close
+              </Button>
+            </Grid>
+          </Grid>
+        </ThemeProvider>
+        <Grid container spacing={2} className="py-12 px-24">
           {cards.map((card) => (
-            <Card key={card.id} {...card} />
+            <Grid item>
+              <Checkbox/>
+              <Card key={card.id} {...card} />
+            </Grid>
           ))}
         </Grid>
         <CardDialog
           variant="new"
           open={openNewCardDialog}
           onClose={() => setOpenNewCardDialog(false)}
-          listId={listId}
+          listId={id}
         />
-        {/* <CardDialog
-          variant="edit"
-          open={openNewCardDialog}
-          onClose={() => setOpenNewCardDialog(false)}
-          listId={listId}
-        /> */}
       </Dialog>
     )
 }

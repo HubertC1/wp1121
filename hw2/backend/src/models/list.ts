@@ -24,6 +24,14 @@ const ListSchema = new mongoose.Schema<ListDocument>(
         ref: "Card",
       },
     ],
+    description: {
+      type: String,
+      required: true,
+    },
+    deleting: {
+      type: Boolean,
+      required: false,
+    }
   },
   {
     timestamps: true,

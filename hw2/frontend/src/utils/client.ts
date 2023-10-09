@@ -41,6 +41,7 @@ export function updateCard(id: string, input: UpdateCardPayload) {
 }
 
 export function updateList(id: string, input: UpdateListPayload) {
+  
   return client.put<UpdateListResponse>(`/lists/${id}`, input);
 }
 

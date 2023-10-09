@@ -15,7 +15,7 @@ import { deleteList, updateList } from "@/utils/client";
 
 import Card from "./Card";
 import type { CardProps } from "./Card";
-import CardDialog from "./CardDialog";
+// import CardDialog from "./CardDialog";
 import ListDialog  from "./ListDialog";
 
 import imageToAdd from "../../images/edSheeran.jpeg"
@@ -24,10 +24,11 @@ export type CardListProps = {
   id: string;
   name: string;
   cards: CardProps[];
+  description: string;
   deleting: boolean;
 };
 
-export default function CardList({ id, name, cards, deleting }: CardListProps) {
+export default function CardList({ id, name, cards, description, deleting}: CardListProps) {
   // const [openNewCardDialog, setOpenNewCardDialog] = useState(false);
   const [openListDialog, setOpenListDialog] = useState(false);
   const [editingName, setEditingName] = useState(false);
@@ -40,6 +41,7 @@ export default function CardList({ id, name, cards, deleting }: CardListProps) {
     const newName = inputRef.current.value;
     if (newName !== name) {
       try {
+        console.log(id);
         await updateList(id, { name: newName });
         fetchLists();
       } catch (error) {
@@ -103,9 +105,10 @@ export default function CardList({ id, name, cards, deleting }: CardListProps) {
         <ListDialog 
           open = {openListDialog}
           onClose = {()=>setOpenListDialog(false)}
-          listId={id}
+          id={id}
           cards = {cards}
           name = {name}
+          description = {description}
         />
         {/* <div className="flex flex-col gap-4">
           {cards.map((card) => (

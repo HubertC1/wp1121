@@ -20,6 +20,8 @@ export type ListData = {
   id: string;
   name: string;
   cards: CardData[];
+  description: string;
+  deleting: boolean;
 };
 
 export type GetCardsResponse = CardData[];

@@ -21,6 +21,8 @@ export const getLists = async (_: Request, res: Response<GetListsResponse>) => {
       return {
         id: list.id,
         name: list.name,
+        description: list.description,
+        deleting: list.deleting,
       };
     });
 
@@ -46,6 +48,8 @@ export const getList = async (
       id: lists.id,
       name: lists.name,
       cards: lists.cards as unknown as CardData[],
+      description: lists.description,
+      deleting: lists.deleting,
     });
   } catch (error) {
     genericErrorHandler(error, res);
@@ -73,12 +77,13 @@ export const updateList = async (
   try {
     const { id } = req.params;
     const { name } = req.body;
-
+    const { description } = req.body;
     // Update the list
     const newList = await ListModel.findByIdAndUpdate(
       id,
       {
         name: name,
+        description: description,
       },
       { new: true },
     );
