@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import useCards from "@/hooks/useCards";
 import { deleteList, updateList } from "@/utils/client";
 
-import Card from "./Card";
+// import Card from "./Card";
 import type { CardProps } from "./Card";
 // import CardDialog from "./CardDialog";
 import ListDialog  from "./ListDialog";
@@ -41,7 +41,6 @@ export default function CardList({ id, name, cards, description, deleting}: Card
     const newName = inputRef.current.value;
     if (newName !== name) {
       try {
-        console.log(id);
         await updateList(id, { name: newName });
         fetchLists();
       } catch (error) {
@@ -63,7 +62,12 @@ export default function CardList({ id, name, cards, description, deleting}: Card
   return (
     <>
       <Paper className="w-80 p-6">
-        <Typography variant="h4" color="#7FFFD4">{cards.length} songs</Typography>
+        {cards.length==1?(
+          <Typography variant="h4" color="#7FFFD4">{cards.length} song</Typography>
+        ):(
+          <Typography variant="h4" color="#7FFFD4">{cards.length} songs</Typography>
+        )
+        }
         <div className="flex gap-4">
           
           {editingName ? (

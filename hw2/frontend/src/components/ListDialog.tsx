@@ -115,7 +115,6 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
       const newName = inputRef0.current.value;
       if (newName !== name) {
         try {
-          console.log(id);
           await updateList(id, { name: newName });
           fetchLists();
         } catch (error) {
@@ -133,8 +132,6 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
       if (newDescription !== description) {
         
         try {
-          console.log("fuck your mom");
-          console.log(id);
           await updateList(id, {description : newDescription });
           fetchLists();
         } catch (error) {

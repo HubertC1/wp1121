@@ -5,7 +5,7 @@ import { RemoveCircleOutlineOutlined as DeleteIcon } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import  Typography  from "@mui/material/Typography";
 import {Grid} from "@mui/material";
-import {Divider} from "@mui/material";
+// import {Divider} from "@mui/material";
 
 import CardList from "@/components/CardList";
 import HeaderBar from "@/components/HeaderBar";
@@ -62,7 +62,7 @@ function App() {
 
         <Grid container spacing = {4}>
         {lists.map((list) => (
-          <Grid item>
+          <Grid item key={list.id}>
             <CardList key={list.id} {...list} deleting={deletingList} />
           </Grid>
         ))}
