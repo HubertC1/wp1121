@@ -14,6 +14,7 @@ import Input from "@mui/material/Input";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
+import {Paper} from "@mui/material"
 
 // import {
 //   Dialog,
@@ -229,6 +230,27 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
             </Grid>
           </Grid>
         </ThemeProvider>
+        <div className="flex flex-col py-12 px-24">
+          <main className="flex flex-row">
+            <Paper className="flex w-full flex-row p-2" elevation={6}>
+              <input
+                type="checkbox"
+                value="checked"
+                // onChange={() => onCardCheck(id)}
+              />
+              <button className="text-start w-full flex flex-row" >
+            
+                <main className="px-12">
+                  song
+                </main>
+                <main className="mx-auto">
+                  singer
+                </main>
+              </button>
+              <a target="_blank">url</a>
+            </Paper>
+          </main>
+        </div>  
         <div className="flex flex-col py-12 px-24">
           {cards.map((card) => (
               <Card key={card.id} {...card} onCardCheck={toggleItemSelection} />

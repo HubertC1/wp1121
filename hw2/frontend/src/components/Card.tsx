@@ -4,9 +4,9 @@ import { Paper } from "@mui/material";
 
 import CardDialog from "./CardDialog";
 
-import { Link } from "@mui/icons-material";
+// import { Link } from "@mui/icons-material";
 
-import { List, CheckBox } from "@mui/icons-material";
+// import { List, CheckBox } from "@mui/icons-material";
 
 export type CardProps = {
   id: string;
@@ -25,7 +25,6 @@ export default function Card({ id, title, description, singer, url, listId, onCa
     setOpen(true);
   };
 
-  const clickUrl = new URL(url);
 
   return (
     <main className="flex flex-row">
@@ -42,7 +41,7 @@ export default function Card({ id, title, description, singer, url, listId, onCa
         onChange = {()=>onCardCheck(id)}
       /> */}
       
-        <button onClick={handleClickOpen} className="text-start w-full flex flex-row" >
+        <button onClick={handleClickOpen} className="flex  w-full flex-row py-3" >
           
             <main className="px-12">
               {title}
@@ -51,7 +50,7 @@ export default function Card({ id, title, description, singer, url, listId, onCa
               {singer}
             </main>
         </button>
-        <a href={url} target="_blank">{url}</a>
+        <a href={url} target="_blank" className="text-right">{url}</a>
       </Paper>
       <CardDialog
         variant="edit"
