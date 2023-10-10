@@ -99,14 +99,25 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
         alert("No cards selected!");
         return;
       }
+      let deleteMessage:string = "Do you want to delete the following songs: |";
       for (let i = 0; i<selectedItems.length; ++i){
-        try{
-          await deleteCard(selectedItems[i]);
-          fetchCards();
-        }catch (error){
-          // alert("Error: Failed to delete cards");
+        for (let j = 0; j<cards.length; ++j){
+          if (cards[j].id === selectedItems[i]){
+            deleteMessage += (cards[j].title+"|");
+          }
         }
       }
+      let allowDelete:boolean = confirm(deleteMessage);
+      if (allowDelete){
+        for (let i = 0; i<selectedItems.length; ++i){
+          try{
+            await deleteCard(selectedItems[i]);
+            fetchCards();
+          }catch (error){
+            // alert("Error: Failed to delete cards");
+          }
+        }        
+      } 
     }
 
     const handleUpdateName = async () => {
