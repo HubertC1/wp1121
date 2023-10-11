@@ -179,7 +179,10 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
     };
     return(
     
-      <Dialog open={open} onClose={onClose} fullScreen={true}>
+      <Dialog open={open} 
+      onClose={onClose} 
+      fullScreen={true}
+      >
         <main className="mx-auto flex max-h-full flex-row gap-6 px-24 py-12">
           <img src= {imageToAdd} width="25%"></img>
           <main className="flex max-w-full flex-col">
@@ -244,7 +247,12 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
             <Grid item>
               <Button
                 variant="contained"
-                onClick={() => {onClose()}}
+                onClick={() => {
+                  if (selectAll === true){
+                    allOnChange();
+                  }
+                  onClose();
+                }}
                 className="w-40"
                 color = "primary"
               >

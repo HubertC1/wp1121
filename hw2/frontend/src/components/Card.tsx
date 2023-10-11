@@ -39,17 +39,9 @@ export default function Card({ id, title, description, singer, url, listId, onCa
   const handleAll = () =>{
     // console.log("title:"+title);
     if (selectAll === true){
-      if (checked === false){
-        handleChecked();
-        // setChecked(true);
-        // onCardCheck(id);
-      }
+      setChecked(true);
     }else{
-      if (checked === true){
-        handleChecked();
-        // setChecked(false);
-        // onCardCheck(id);
-      }
+      setChecked(false);
     }
   }
 
@@ -58,7 +50,7 @@ export default function Card({ id, title, description, singer, url, listId, onCa
   
   useEffect(() => {
     onCardCheck(checked, id);
-  }, [checked]);
+  }, [checked,id,onCardCheck]);
 
   return (
     <main className="flex flex-row">
