@@ -82,19 +82,44 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
     const [editingDescription, setEditingDescription] = useState(false);
     const [editingName, setEditingName] = useState(false);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [selectAll, setSelectAll] = useState(false);
     const inputRef0 = useRef<HTMLInputElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const {fetchLists, fetchCards} = useCards();
 
-    const toggleItemSelection = (itemId: string) =>{
-      if (selectedItems.includes(itemId)) {
-        setSelectedItems(selectedItems.filter((id) => id !== itemId));
-      } else {
-        setSelectedItems([...selectedItems, itemId]);
+
+    const toggleItemSelection = (checked: boolean, itemId: string) =>{
+      
+      if (checked === true){
+        if (!(selectedItems.includes(itemId))){
+          setSelectedItems((prevArray) => [...prevArray, itemId]);
+          // setSelectedItems([...selectedItems, itemId]);
+        }
+      }else{
+        setSelectedItems((prevArray) => prevArray.filter((id) => id !== itemId));
       }
     };
 
-    const deleteCheckedCards = async() =>{
+    const allOnChange = ()=>{
+      const newSelectAll = !selectAll;
+      if (selectAll === false){
+        setSelectAll(true);
+      }else{
+        setSelectAll(false);
+      }
+      for (let i = 0; i<cards.length; ++i){
+        cards[i].selectAll = newSelectAll;
+      }
+      // cards.map((card)=>{
+      //   card.selectAll = newSelectAll;
+      // })
+      // cards.map((card)=>{
+      //   console.log(card);
+      //   toggleItemSelection(newSelectAll,card.id);
+      // });
+    }
+
+    const deleteCheckedCards = () =>{
       if (selectedItems.length === 0){
         alert("No cards selected!");
         return;
@@ -107,17 +132,18 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
           }
         }
       }
-      let allowDelete:boolean = confirm(deleteMessage);
+      const allowDelete:boolean = confirm(deleteMessage);
       if (allowDelete){
         for (let i = 0; i<selectedItems.length; ++i){
           try{
-            await deleteCard(selectedItems[i]);
+            deleteCard(selectedItems[i]);
             fetchCards();
           }catch (error){
             // alert("Error: Failed to delete cards");
           }
         }        
       } 
+      setSelectedItems([]);
     }
 
     const handleUpdateName = async () => {
@@ -238,13 +264,13 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
             </Grid>
           </Grid>
         </ThemeProvider>
-        <div className="flex flex-col py-12 px-24">
+        <div className="flex flex-col py-12 px-24" >
           <main className="flex flex-row">
             <Paper className="flex w-full flex-row p-2" elevation={6}>
               <input
                 type="checkbox"
                 value="checked"
-                // onChange={() => onCardCheck(id)}
+                onChange={() => allOnChange()}
               />
               <button className="text-start w-full flex flex-row" >
             
@@ -260,8 +286,9 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
           </main>
         </div>  
         <div className="flex flex-col py-12 px-24">
+          
           {cards.map((card) => (
-              <Card key={card.id} {...card} onCardCheck={toggleItemSelection} />
+              <Card key={card.id} {...card} onCardCheck={toggleItemSelection} selectAll = {selectAll}/>
           ))}
         </div>
         <CardDialog

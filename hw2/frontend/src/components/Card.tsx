@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Paper } from "@mui/material";
 
@@ -15,16 +15,50 @@ export type CardProps = {
   singer: string;
   url: string;
   listId: string;
-  onCardCheck: (id:string)=>void;
+  onCardCheck: (selected:boolean, id:string)=>void;
+  selectAll: boolean;
 };
 
-export default function Card({ id, title, description, singer, url, listId, onCardCheck}: CardProps) {
+export default function Card({ id, title, description, singer, url, listId, onCardCheck, selectAll}: CardProps) {
   const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
   // const [checked, setChecked] = useState(false);
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const handleChecked = () => {
+    if (checked === false){
+      setChecked(true);
+    }else{
+      setChecked(false);
+    }
+    // onCardCheck(newChecked, id);
+  }
 
+  const handleAll = () =>{
+    // console.log("title:"+title);
+    if (selectAll === true){
+      if (checked === false){
+        handleChecked();
+        // setChecked(true);
+        // onCardCheck(id);
+      }
+    }else{
+      if (checked === true){
+        handleChecked();
+        // setChecked(false);
+        // onCardCheck(id);
+      }
+    }
+  }
+
+  useEffect(handleAll, [selectAll]);
+
+  
+  useEffect(() => {
+    onCardCheck(checked, id);
+  }, [checked]);
 
   return (
     <main className="flex flex-row">
@@ -32,7 +66,15 @@ export default function Card({ id, title, description, singer, url, listId, onCa
         <input
           type="checkbox"
           value="checked"
-          onChange={() => onCardCheck(id)}
+          // onChange={() => {
+          //   console.log("hi");
+          //   onCardCheck(id);
+          // }}
+          onClick={()=>{
+            handleChecked();
+          }}
+          checked = {checked}
+
         />
       {/* <CheckBox
         // checked = {checked}
