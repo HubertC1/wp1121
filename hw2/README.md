@@ -49,7 +49,7 @@ cd frontend
 yarn dev
 ```
 
-Visit `http://localhost:5173` to see the app in action. That's it, you're done! If you want to set up the whole project from scratch, you can follow the instructions below.
+Visit `http://localhost:5173`(or the local host appeared in the terminal) to see the app in action. That's it, you're done! If you want to set up the whole project from scratch, you can follow the instructions below.
 
 ## eslint and prettier
 
