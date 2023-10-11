@@ -269,6 +269,8 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
           open={openNewCardDialog}
           onClose={() => setOpenNewCardDialog(false)}
           listId={id}
+          singer=""
+          url=""
         />
       </Dialog>
     )

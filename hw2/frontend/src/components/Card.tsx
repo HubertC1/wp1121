@@ -50,7 +50,7 @@ export default function Card({ id, title, description, singer, url, listId, onCa
               {singer}
             </main>
         </button>
-        <a href={url} target="_blank" rel="noreferrer" className="text-right">{url}</a>
+        <a href={url} target="_blank" rel="noreferrer" className="text-right py-3">{url}</a>
       </Paper>
       <CardDialog
         variant="edit"
