@@ -241,7 +241,7 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
                 color = "primary"
               >
                 {/* <AddIcon className="mr-2" /> */}
-                Add a card
+                Add a song
               </Button>
             </Grid>
             <Grid item>
