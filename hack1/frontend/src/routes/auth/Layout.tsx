@@ -84,7 +84,9 @@ const AuthLayout = () => {
                 className="last-of-type:border-r-0"
                 data-testid={`tab-${tab.path}`}
               >
-                <NavLink to={tab.title} />
+                <NavLink to={location.pathname} >
+                  {tab.title}
+                </NavLink>
               </TabsTrigger>
               /* End of TODO 1.3 */
             ))}
@@ -93,9 +95,9 @@ const AuthLayout = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 tracking-normal">
             {/* <title>VSCoddit</title> */}
-            <h1>VSCoddit</h1>
-            <img src="../../../vscoddit.svg" alt="VSCoddit Logo" className="h-5 w-5 brightness-200" />
             
+            <img src="../../../vscoddit.svg" alt="VSCoddit Logo" className="h-5 w-5 brightness-200" />
+            <h1>VSCoddit</h1>
             {/* TODO 1.1: Title and Login Page Title (5%) */}
             {/* Add a logo to the left of the title. */}
             {/* The logo should be vscoddit.svg in the public folder. */}
@@ -168,6 +170,8 @@ const AuthLayout = () => {
                 type="password"
                 name="confirm-password"
                 autoComplete="new-password"
+                placeholder='Confirm Password'
+                required={location.pathname==='/register'}
               />
               {/* End of TODO 1.5 */}
             </div>
