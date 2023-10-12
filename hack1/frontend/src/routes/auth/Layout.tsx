@@ -39,8 +39,8 @@ const AuthLayout = () => {
     /* Have a think about why we need to prevent the default behavior of the form. */
     /* What happens if we don't prevent the default behavior? */
     if (location.pathname === '/login') {
-      login(username, password);
-      // login('test','123')
+      // login(username, password);
+      login('test','123')
       /* Replace the above line with the following line if you want to test other TODOs in this hackathon. */
       // login('test', '123');
       /* Warning: Remember to change it back if you want to test the login functionality. */
