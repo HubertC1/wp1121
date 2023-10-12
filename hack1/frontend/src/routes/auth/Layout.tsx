@@ -53,11 +53,14 @@ const AuthLayout = () => {
       /* They can be created via the `toast` function provided by `useToast()` */
       /* Reference: https://ui.shadcn.com/docs/components/toast#usage */
       if (password !== confirmPassword){
-        toast({
-          title:"Passwords do not mathch",
-          description:"Passwords do not match"
-        })
-        alert("Passwords do not match");
+          
+          toast({
+            title:"Passwords do not match",
+            description:"Passwords do not match",
+          })
+      
+
+        // alert("Passwords do not match");
       }
       /* End of TODO 1.5 */
       register(username, password);
@@ -84,7 +87,7 @@ const AuthLayout = () => {
                 className="last-of-type:border-r-0"
                 data-testid={`tab-${tab.path}`}
               >
-                <NavLink to={tab.path} >
+                <NavLink to={"/"+tab.path} >
                   {tab.title}
                 </NavLink>
               </TabsTrigger>
