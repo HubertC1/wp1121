@@ -39,7 +39,8 @@ const AuthLayout = () => {
     /* Have a think about why we need to prevent the default behavior of the form. */
     /* What happens if we don't prevent the default behavior? */
     if (location.pathname === '/login') {
-      login(username, password);
+      // login(username, password);
+      login('test','123')
       /* Replace the above line with the following line if you want to test other TODOs in this hackathon. */
       // login('test', '123');
       /* Warning: Remember to change it back if you want to test the login functionality. */
@@ -51,7 +52,13 @@ const AuthLayout = () => {
       /* Here, a toast is a small, non-blocking notification pop-up. */
       /* They can be created via the `toast` function provided by `useToast()` */
       /* Reference: https://ui.shadcn.com/docs/components/toast#usage */
-
+      if (password !== confirmPassword){
+        toast({
+          title:"Passwords do not mathch",
+          description:"Passwords do not match"
+        })
+        alert("Passwords do not match");
+      }
       /* End of TODO 1.5 */
       register(username, password);
     }
@@ -73,11 +80,11 @@ const AuthLayout = () => {
               <TabsTrigger
                 asChild
                 key={tab.title}
-                value=""
+                value={location.pathname}
                 className="last-of-type:border-r-0"
                 data-testid={`tab-${tab.path}`}
               >
-                <NavLink to="" />
+                <NavLink to={tab.title} />
               </TabsTrigger>
               /* End of TODO 1.3 */
             ))}
@@ -117,7 +124,9 @@ const AuthLayout = () => {
                 data-testid="input-username"
                 type="text"
                 name="username"
-                autoComplete="username"
+                autoComplete={username}
+                placeholder='Enter Username'
+                required={true}
               />
               {/* End of TODO 1.4 */}
             </div>
@@ -133,7 +142,9 @@ const AuthLayout = () => {
                 data-testid="input-password"
                 type="password"
                 name="password"
-                autoComplete="current-password"
+                autoComplete={password}
+                placeholder='Enter Password'
+                required={true}
               />
               {/* End of TODO 1.4 */}
             </div>
