@@ -139,7 +139,7 @@ export default function ListDialog({open, onClose,id, cards, name, description}:
             await deleteCard(selectedItems[i]);
             fetchCards();
           }catch (error){
-            // alert("Error: Failed to delete cards");
+            alert("Error: Failed to delete cards");
           }
         }        
       } 
