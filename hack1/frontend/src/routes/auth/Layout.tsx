@@ -93,8 +93,9 @@ const AuthLayout = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 tracking-normal">
             {/* <title>VSCoddit</title> */}
-            <img src="../../../vscoddit.svg" alt="VSCoddit Logo" className="w-10 h-10" />
             <h1>VSCoddit</h1>
+            <img src="../../../vscoddit.svg" alt="VSCoddit Logo" className="h-5 w-5 brightness-200" />
+            
             {/* TODO 1.1: Title and Login Page Title (5%) */}
             {/* Add a logo to the left of the title. */}
             {/* The logo should be vscoddit.svg in the public folder. */}
