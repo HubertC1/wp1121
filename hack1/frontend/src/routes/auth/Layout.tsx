@@ -74,7 +74,7 @@ const AuthLayout = () => {
               /* Each `TabsTrigger` should has a `value` the same as corresponding the pathname. */
               /* Inside each `TabsTrigger`, there should be a `NavLink` component. */
               /* You can think of `NavLink`'s `to` prop as the anchor's `href` attribute. */
-              /* Each `NavLink` should use `title` as its content. */
+              /* Each `NavLink` fshould use `title` as its content. */
               /* Reference: https://reactrouter.com/en/main/components/nav-link */
               /*            https://ui.shadcn.com/docs/components/tabs#usage */
               <TabsTrigger
