@@ -80,11 +80,11 @@ const AuthLayout = () => {
               <TabsTrigger
                 asChild
                 key={tab.title}
-                value={location.pathname}
+                value={tab.path}
                 className="last-of-type:border-r-0"
                 data-testid={`tab-${tab.path}`}
               >
-                <NavLink to={location.pathname} >
+                <NavLink to={tab.path} >
                   {tab.title}
                 </NavLink>
               </TabsTrigger>
