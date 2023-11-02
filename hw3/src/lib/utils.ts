@@ -31,3 +31,17 @@ export function validateUsername(username?: string | null) {
   if (!username) return false;
   return /^[a-zA-Z0-9 ]{1,50}$/.test(username);
 }
+
+export function validateDate(start?: Date | null, end?: Date|null){
+  if (!start || !end) return false;
+  var time = new Date(end).getTime() - new Date(start).getTime();
+}
+
+export function validateEditing(editing?: string | null){
+  if (!editing) return false;
+  if (editing === "true"){
+    return true;
+  }else{
+    return false;
+  }
+}

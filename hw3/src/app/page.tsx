@@ -153,7 +153,7 @@ export default async function Home({
             content={tweet.content}
             likes={tweet.likes}
             liked={tweet.liked}
-            createdAt={tweet.createdAt!}
+            createdAt={tweet.createdAt!} // exclamation mark means it cannot be null
           />
         ))}
       </div>

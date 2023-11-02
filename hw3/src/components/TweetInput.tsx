@@ -51,7 +51,7 @@ export default function TweetInput() {
           <GrowingTextarea
             ref={textareaRef}
             className="bg-transparent outline-none placeholder:text-gray-500"
-            placeholder="What's happening?"
+            placeholder="搜尋想參加的活動"
           />
         </div>
         <Separator />
@@ -64,7 +64,7 @@ export default function TweetInput() {
             onClick={handleTweet}
             disabled={loading}
           >
-            Tweet
+            新增
           </button>
         </div>
       </div>
