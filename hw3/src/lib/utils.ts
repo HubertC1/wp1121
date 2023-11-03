@@ -29,6 +29,7 @@ export function validateHandle(handle?: string | null) {
 
 export function validateUsername(username?: string | null) {
   if (!username) return false;
+  if (username === "") return false;
   return /^[a-zA-Z0-9 ]{1,50}$/.test(username);
 }
 

@@ -12,13 +12,28 @@ import useUserInfo from "@/hooks/useUserInfo";
 import { cn } from "@/lib/utils";
 import { useRouter,usePathname,useSearchParams } from "next/navigation";
 
-export default function TweetInput() {
+export default function SearchBar() {
   const { username, handle } = useUserInfo();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { postTweet, loading } = useTweet();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const handleAddTweet = async () => {
+    const params = new URLSearchParams(searchParams);
+    params.set("username", username!);
+    params.set("handle", handle!);
+    params.set("editing", "true");
+    router.push(`${pathname}?${params.toString()}`);
+  }
+
+  const handleChangeName = async () => {
+    const params = new URLSearchParams(searchParams);
+    params.set("username", "");
+    params.set("handle", "");
+    params.set("editing", "false");
+    router.push(`${pathname}?${params.toString()}`);
+  }
   const handleTweet = async () => {
     const content = textareaRef.current?.value;
     if (!content) return;
@@ -48,34 +63,45 @@ export default function TweetInput() {
   };
 
   return (
-    <div className="flex gap-4" onClick={() => textareaRef.current?.focus()}>
-      <UserAvatar className="h-12 w-12" />
+    <>
+      <div className="flex justify-between">
+        <UserAvatar className="h-12 w-12" />
+        <article className="mt-2 whitespace-pre-wrap">Username: {username}</article>
+        <button
+            className={cn(
+              "my-2 rounded-full bg-brand px-4 py-2 text-white transition-colors hover:bg-brand/70",
+              "disabled:cursor-not-allowed disabled:bg-brand/40 disabled:hover:bg-brand/40",
+            )}
+            onClick={handleChangeName}
+            disabled={loading}
+          >
+            切換使用者
+          </button>
+      </div>
       <div className="flex w-full flex-col px-2">
-        <button className="flex w-fit items-center rounded-full border-[1px] border-gray-300 px-2 text-sm font-bold text-brand">
-          Everyone
-          <ChevronDown size={16} className="text-gray-300" />
-        </button>
         <div className="mb-2 mt-6">
           <GrowingTextarea
             ref={textareaRef}
             className="bg-transparent outline-none placeholder:text-gray-500"
-            placeholder="去中央球場打球！"
+            placeholder="搜尋活動"
           />
         </div>
         <Separator />
+
         <div className="flex justify-end">
           <button
             className={cn(
               "my-2 rounded-full bg-brand px-4 py-2 text-white transition-colors hover:bg-brand/70",
               "disabled:cursor-not-allowed disabled:bg-brand/40 disabled:hover:bg-brand/40",
             )}
-            onClick={handleTweet}
+            onClick={handleAddTweet}
             disabled={loading}
           >
-            新增
+            新增活動
           </button>
         </div>
       </div>
-    </div>
+    </>
+
   );
 }
