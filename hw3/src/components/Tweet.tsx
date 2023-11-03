@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { MessageCircle, Repeat2, Share } from "lucide-react";
+import { BadgeCheck, MessageCircle, Repeat2, Share } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { getAvatar } from "@/lib/utils";
@@ -63,7 +63,19 @@ export default function Tweet({
               </time>
             </p>
             {/* `white-space: pre-wrap` tells html to render \n and \t chracters  */}
-            <article className="mt-2 whitespace-pre-wrap">{content}</article>
+            <div className="flex justify-between">
+              <article className="mt-2 whitespace-pre-wrap">{content}</article>
+              {(liked===true)?
+              <div className="flex justify-between">
+                
+                <p className="mt-2 whitespace-pre-wrap">{likes}人參加   </p>
+                <BadgeCheck size={30} />
+              </div>
+              :
+              <article className="mt-2 whitespace-pre-wrap">{likes??0}人參加          </article>
+              }
+            </div>
+
             <div className="my-2 flex items-center justify-between gap-4 text-gray-400">
               <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
                 <MessageCircle size={20} className="-scale-x-100" />
