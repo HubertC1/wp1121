@@ -61,13 +61,15 @@ export default function LikeButton({
     >
       <div
         className={cn(
-          "flex items-center gap-1 rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10",
+          "flex items-center gap-1 rounded-full  transition-colors duration-300 bg-neutral-500/50 hover:bg-brand/10",
           liked && "bg-brand/10",
         )}
       >
-        <Heart size={18} />
+        {/* <div className="rectangle"> */}
+        {liked?<p>我已參加</p>:<p>我想參加</p>}
+        {/* </div> */}
       </div>
-      {likesCount > 0 && likesCount}
+      {/* {likesCount > 0 && likesCount} */}
     </button>
   );
 }

@@ -255,6 +255,7 @@ export default async function TweetPage({
             likes={reply.likes}
             liked={reply.liked}
             createdAt={reply.createdAt!}
+            isReply = {true}
           />
         ))}
       </div>
