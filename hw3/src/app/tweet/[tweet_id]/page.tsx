@@ -216,7 +216,7 @@ export default async function TweetPage({
           </time>
           <Separator />
           <div className="my-2 flex items-center justify-between gap-4 text-gray-400">
-            <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
+            <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand" disabled={tweet.liked}>
               <MessageCircle size={20} className="-scale-x-100" />
             </button>
             <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
@@ -234,7 +234,7 @@ export default async function TweetPage({
           </div>
           <Separator />
         </div>
-        <ReplyInput replyToTweetId={tweet.id} replyToHandle={tweet.handle} />
+        <ReplyInput replyToTweetId={tweet.id} replyToHandle={tweet.handle} participated={tweet.liked} />
         <Separator />
         {replies.map((reply) => (
           <Tweet
