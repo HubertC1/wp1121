@@ -188,7 +188,7 @@ export default async function TweetPage({
         </div>
         <div className="flex flex-col px-4 pt-3">
           <div className="flex justify-between">
-            <div className="flex w-full gap-3">
+            <div className="flex flex-row w-full gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={getAvatar(tweet.username)}
@@ -197,12 +197,24 @@ export default async function TweetPage({
                 height={48}
                 className="h-12 w-12 rounded-full"
               />
-              <div>
-                <p className="font-bold">{tweet.username ?? "..."}</p>
-                <p className="font-normal text-gray-500">
-                  @{tweet.handle ?? "..."}
-                </p>
+              <div className="flex w-full justify-between">
+                <div>
+                  <p className="font-bold">{tweet.username ?? "..."}</p>
+                  <p className="font-normal text-gray-500">
+                    @{tweet.handle ?? "..."}
+                  </p>
+                </div>
+                <div className="px-100">
+                  <LikeButton
+                    handle={handle}
+                    initialLikes={tweet.likes}
+                    initialLiked={tweet.liked}
+                    tweetId={tweet.id}
+                  />
+                </div>
               </div>
+
+
             </div>
             <button className="h-fit rounded-full p-2.5 text-gray-400 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
               <MoreHorizontal size={16} />
@@ -214,7 +226,7 @@ export default async function TweetPage({
           <time className="my-4 block text-sm text-gray-500">
             <TimeText date={tweet.createdAt} format="h:mm A · D MMM YYYY" />
           </time>
-          <Separator />
+          {/* <Separator />
           <div className="my-2 flex items-center justify-between gap-4 text-gray-400">
             <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand" disabled={tweet.liked}>
               <MessageCircle size={20} className="-scale-x-100" />
@@ -222,16 +234,11 @@ export default async function TweetPage({
             <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
               <Repeat2 size={22} />
             </button>
-            <LikeButton
-              handle={handle}
-              initialLikes={tweet.likes}
-              initialLiked={tweet.liked}
-              tweetId={tweet.id}
-            />
+
             <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
               <Share size={18} />
             </button>
-          </div>
+          </div> */}
           <Separator />
         </div>
         <ReplyInput replyToTweetId={tweet.id} replyToHandle={tweet.handle} participated={tweet.liked} />
