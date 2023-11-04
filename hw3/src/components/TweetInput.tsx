@@ -15,6 +15,8 @@ import useUserInfo from "@/hooks/useUserInfo";
 import { cn } from "@/lib/utils";
 import { useRouter,usePathname,useSearchParams } from "next/navigation";
 
+import { validateDate } from "@/lib/utils";
+
 export default function TweetInput() {
   const { username, handle } = useUserInfo();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -32,6 +34,10 @@ export default function TweetInput() {
     if (!start) return;
     const end = enddateRef.current?.value;
     if(!end) return;
+    if (validateDate(start,end) === false){
+      alert("dates must be valid and within 7 days!");
+      return;
+    }
     try {
       await postTweet({
         handle,

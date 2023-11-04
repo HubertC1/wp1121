@@ -33,10 +33,42 @@ export function validateUsername(username?: string | null) {
   return /^[a-zA-Z0-9 ]{1,50}$/.test(username);
 }
 
+
+function isValidDate(dateString:string) {
+  const date = new Date(dateString);
+  return !isNaN(date.getTime());
+}
+
 export function validateDate(start?: string | null, end?: string|null){
   if (!start || !end) return false;
-  var time = new Date(end).getTime() - new Date(start).getTime();
+  if (!isValidDate(start.substring(0,10)) || !isValidDate(end.substring(0,10))){
+    return false;
+  }else{
+    const startdate = new Date(start.substring(0,10));
+    const enddate = new Date(end.substring(0,10));
+    const between = enddate.getTime() - startdate.getTime();
+    console.log(between);
+    if (between > 604800000){
+      return false;
+    }
+    if (startdate === enddate){
+      var starttime1:number = +start.substring(12,13);
+      var starttime2:number = +start.substring(13,14);
+      var endtime1:number = +end.substring(12,13);
+      var endtime2:number = +end.substring(13,14);
+      var starttime:number = starttime1*10+starttime2;
+      var endtime:number = endtime1*10+endtime2;
+      console.log(starttime)
+      if (endtime < starttime){
+        return false;
+      }
+    }
+    return true;
+  }
 }
+
+
+
 
 export function validateEditing(editing?: string | null){
   if (!editing) return false;

@@ -66,9 +66,10 @@ export default function EventDialog() {
     setHandleError(newHandleError);
     const eventNameError = !validateUsername(eventName);
     setEventNameError(eventNameError);
-    // const dateError = !validateDate(startTime, endTime);
+    const dateError = !validateDate(startTime, endTime);
+    setDateError(dateError);
 
-    if (newUsernameError || newHandleError) {
+    if (newUsernameError || newHandleError || dateError) {
       return false;
     }
 
