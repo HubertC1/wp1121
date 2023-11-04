@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { BadgeCheck, MessageCircle, Repeat2, Share } from "lucide-react";
@@ -49,9 +51,31 @@ export default function Tweet({
   //   // if any of the username or handle is not valid, open the dialog
   //   // setDialogOpen(!validateUsername(username) || !validateHandle(handle));
   // }, [searchParams]);
+  const isSearched = () => {
+    const searchParam = useSearchParams();
+    const searching = searchParam.get("searching");
+    // console.log(searching);
+    // console.log(content);
+    if (searching === null || searching === ""){
+      // alert("fuck1!");
+      return true;
+    }
+    if (content.includes(searching!)){
+      // alert("fuck!");
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  const checkSearched = isSearched();
+  console.log(checkSearched);
+
   return (
     <>
     {!isReply?
+    <>
+     {(checkSearched===true)?
       <Link
       className="w-full px-4 pt-3 transition-colors hover:bg-gray-50"
       href={{
@@ -62,6 +86,7 @@ export default function Tweet({
         },
       }}
     >
+      {/* <p>pissoff</p> */}
       <div className="flex gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -113,7 +138,13 @@ export default function Tweet({
           </div> 
         </article>
       </div>
-    </Link>
+    </Link>:
+    <>
+      {/* <p>science bitch!</p> */}
+    </>
+     }
+    </>
+
     :
     <div
     className="w-full px-4 pt-3 transition-colors hover:bg-gray-50"

@@ -27,6 +27,14 @@ export default function SearchBar() {
     router.push(`${pathname}?${params.toString()}`);
   }
 
+  const handleSearch = async () => {
+    const searchName = textareaRef.current?.value;
+    const params = new URLSearchParams(searchParams);
+    params.set("searching", searchName!);
+    router.push(`${pathname}?${params.toString()}`)
+    textareaRef.current!.value="";
+  }
+
   const handleChangeName = async () => {
     const params = new URLSearchParams(searchParams);
     params.set("username", "");
@@ -79,12 +87,23 @@ export default function SearchBar() {
           </button>
       </div>
       <div className="flex w-full flex-col px-2">
-        <div className="mb-2 mt-6">
+        <div className="flex mb-2 mt-6 justify-between">
           <GrowingTextarea
             ref={textareaRef}
             className="bg-transparent outline-none placeholder:text-gray-500"
             placeholder="搜尋活動"
+            
           />
+          <button
+            className={cn(
+              "my-2 rounded-full bg-brand px-4 py-2 text-white transition-colors hover:bg-brand/70",
+              "disabled:cursor-not-allowed disabled:bg-brand/40 disabled:hover:bg-brand/40",
+            )}
+            onClick={handleSearch}
+            disabled={loading}
+          >
+            搜尋
+          </button>
         </div>
         <Separator />
 
