@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 
 import {
   Bell,
@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react";
 
-import larry from "@/assets/larry.png";
+// import larry from "@/assets/larry.png";
 import { cn } from "@/lib/utils";
 
 import ProfileButton from "./ProfileButton";
@@ -24,9 +24,9 @@ export default function Header() {
     <aside className="flex h-screen flex-col justify-between px-6 py-6">
       <div className="flex flex-col gap-2">
         <div className="p-2">
-          <Link href="/">
+          {/* <Link href="/">
             <Image src={larry} alt="Larry the bird" width={40} height={40} />
-          </Link>
+          </Link> */}
         </div>
         <HeaderButton Icon={Home} text="Home" active />
         <HeaderButton Icon={Search} text="Explore" />
