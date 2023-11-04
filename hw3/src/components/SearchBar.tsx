@@ -34,33 +34,33 @@ export default function SearchBar() {
     params.set("editing", "false");
     router.push(`${pathname}?${params.toString()}`);
   }
-  const handleTweet = async () => {
-    const content = textareaRef.current?.value;
-    if (!content) return;
-    if (!handle) return;
+  // const handleTweet = async () => {
+  //   const content = textareaRef.current?.value;
+  //   if (!content) return;
+  //   if (!handle) return;
 
-    try {
-      await postTweet({
-        handle,
-        content,
-      });
-      textareaRef.current.value = "";
-      // this triggers the onInput event on the growing textarea
-      // thus triggering the resize
-      // for more info, see: https://developer.mozilla.org/en-US/docs/Web/API/Event
-      textareaRef.current.dispatchEvent(
-        new Event("input", { bubbles: true, composed: true }),
-      );
-    } catch (e) {
-      console.error(e);
-      alert("Error posting tweet");
-    }
-    const params = new URLSearchParams(searchParams);
-    params.set("username", username!);
-    params.set("handle", handle!);
-    params.set("editing", "false");
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  //   try {
+  //     await postTweet({
+  //       handle,
+  //       content,
+  //     });
+  //     textareaRef.current.value = "";
+  //     // this triggers the onInput event on the growing textarea
+  //     // thus triggering the resize
+  //     // for more info, see: https://developer.mozilla.org/en-US/docs/Web/API/Event
+  //     textareaRef.current.dispatchEvent(
+  //       new Event("input", { bubbles: true, composed: true }),
+  //     );
+  //   } catch (e) {
+  //     console.error(e);
+  //     alert("Error posting tweet");
+  //   }
+  //   const params = new URLSearchParams(searchParams);
+  //   params.set("username", username!);
+  //   params.set("handle", handle!);
+  //   params.set("editing", "false");
+  //   router.push(`${pathname}?${params.toString()}`);
+  // };
 
   return (
     <>

@@ -117,6 +117,8 @@ export default async function Home({
     .select({
       id: tweetsTable.id,
       content: tweetsTable.content,
+      start: tweetsTable.start,
+      end: tweetsTable.end,
       username: usersTable.displayName,
       handle: usersTable.handle,
       likes: likesSubquery.likes,
@@ -153,6 +155,8 @@ export default async function Home({
             authorName={tweet.username}
             authorHandle={tweet.handle}
             content={tweet.content}
+            start={tweet.start}
+            end={tweet.end}
             likes={tweet.likes}
             liked={tweet.liked}
             createdAt={tweet.createdAt!} // exclamation mark means it cannot be null

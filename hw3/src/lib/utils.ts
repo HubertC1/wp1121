@@ -33,7 +33,7 @@ export function validateUsername(username?: string | null) {
   return /^[a-zA-Z0-9 ]{1,50}$/.test(username);
 }
 
-export function validateDate(start?: Date | null, end?: Date|null){
+export function validateDate(start?: string | null, end?: string|null){
   if (!start || !end) return false;
   var time = new Date(end).getTime() - new Date(start).getTime();
 }

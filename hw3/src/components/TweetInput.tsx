@@ -4,6 +4,9 @@ import { useRef } from "react";
 
 import { ChevronDown } from "lucide-react";
 
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+
 import GrowingTextarea from "@/components/GrowingTextarea";
 import UserAvatar from "@/components/UserAvatar";
 import { Separator } from "@/components/ui/separator";
@@ -15,6 +18,8 @@ import { useRouter,usePathname,useSearchParams } from "next/navigation";
 export default function TweetInput() {
   const { username, handle } = useUserInfo();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const startdateRef = useRef<HTMLInputElement>(null);
+  const enddateRef = useRef<HTMLInputElement>(null);
   const { postTweet, loading } = useTweet();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -23,11 +28,16 @@ export default function TweetInput() {
     const content = textareaRef.current?.value;
     if (!content) return;
     if (!handle) return;
-
+    const start = startdateRef.current?.value;
+    if (!start) return;
+    const end = enddateRef.current?.value;
+    if(!end) return;
     try {
       await postTweet({
         handle,
         content,
+        start,
+        end,
       });
       textareaRef.current.value = "";
       // this triggers the onInput event on the growing textarea
@@ -48,7 +58,8 @@ export default function TweetInput() {
   };
 
   return (
-    <div className="flex gap-4" onClick={() => textareaRef.current?.focus()}>
+    // <div className="flex gap-4" onClick={() => textareaRef.current?.focus()}>
+    <div className="flex gap-4">
       <UserAvatar className="h-12 w-12" />
       <div className="flex w-full flex-col px-2">
         <button className="flex w-fit items-center rounded-full border-[1px] border-gray-300 px-2 text-sm font-bold text-brand">
@@ -60,6 +71,26 @@ export default function TweetInput() {
             ref={textareaRef}
             className="bg-transparent outline-none placeholder:text-gray-500"
             placeholder="去中央球場打球！"
+          />
+          <Label htmlFor="name" className="text-right">
+            Start time
+          </Label>
+          <Input
+            placeholder="1990-07-02-05"
+            // defaultValue={searchParams.get("username") ?? ""}
+            // className={cn(usernameError && "border-red-500", "col-span-3")}
+            className={cn("border-red-500", "col-span-3")}
+            ref={startdateRef}
+          />
+          <Label htmlFor="name" className="text-right">
+            End time
+          </Label>
+          <Input
+            placeholder="1990-07-08-04"
+            // defaultValue={searchParams.get("username") ?? ""}
+            // className={cn(usernameError && "border-red-500", "col-span-3")}
+            className={cn("border-red-500", "col-span-3")}
+            ref={enddateRef}
           />
         </div>
         <Separator />

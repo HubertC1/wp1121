@@ -70,6 +70,8 @@ export default async function TweetPage({
     .select({
       id: tweetsTable.id,
       content: tweetsTable.content,
+      start: tweetsTable.start,
+      end: tweetsTable.end,
       userHandle: tweetsTable.userHandle,
       createdAt: tweetsTable.createdAt,
     })
@@ -129,6 +131,8 @@ export default async function TweetPage({
   const tweet = {
     id: tweetData.id,
     content: tweetData.content,
+    start: tweetData.start,
+    end: tweetData.end,
     username: user.displayName,
     handle: user.handle,
     likes: numLikes,
@@ -163,6 +167,8 @@ export default async function TweetPage({
     .select({
       id: tweetsTable.id,
       content: tweetsTable.content,
+      start: tweetsTable.start,
+      end: tweetsTable.end,
       username: usersTable.displayName,
       handle: usersTable.handle,
       likes: likesSubquery.likes,
@@ -221,11 +227,13 @@ export default async function TweetPage({
             </button>
           </div>
           <article className="mt-3 whitespace-pre-wrap text-xl">
-            {tweet.content}
+            {tweet.content}      
           </article>
-          <time className="my-4 block text-sm text-gray-500">
+          {/* <time className="my-4 block text-sm text-gray-500">
             <TimeText date={tweet.createdAt} format="h:mm A · D MMM YYYY" />
-          </time>
+          </time> */}
+          <article className="mt-2 whitespace-pre-wrap">start time:{tweet.start}</article>
+          <article className="mt-2 whitespace-pre-wrap">end time:{tweet.end}</article>
           {/* <Separator />
           <div className="my-2 flex items-center justify-between gap-4 text-gray-400">
             <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand" disabled={tweet.liked}>
@@ -252,6 +260,8 @@ export default async function TweetPage({
             authorName={reply.username}
             authorHandle={reply.handle}
             content={reply.content}
+            start = {reply.start}
+            end={reply.end}
             likes={reply.likes}
             liked={reply.liked}
             createdAt={reply.createdAt!}

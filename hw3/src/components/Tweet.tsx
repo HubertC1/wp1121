@@ -17,6 +17,8 @@ type TweetProps = {
   authorName: string;
   authorHandle: string;
   content: string;
+  start: string;
+  end: string;
   likes: number;
   createdAt: Date;
   liked?: boolean;
@@ -32,6 +34,8 @@ export default function Tweet({
   authorName,
   authorHandle,
   content,
+  start,
+  end,
   likes,
   createdAt,
   liked,
@@ -88,7 +92,8 @@ export default function Tweet({
             <article className="mt-2 whitespace-pre-wrap">{likes??0}人參加          </article>
             }
           </div>
-
+          <article className="mt-2 whitespace-pre-wrap">start time:{start}</article>
+          <article className="mt-2 whitespace-pre-wrap">end time:{end}</article>
           <div className="my-2 flex items-center justify-between gap-4 text-gray-400">
             {/* <button className="rounded-full p-1.5 transition-colors duration-300 hover:bg-brand/10 hover:text-brand">
               <MessageCircle size={20} className="-scale-x-100" />

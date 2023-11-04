@@ -25,6 +25,8 @@ export default function ReplyInput({
 
   const handleReply = async () => {
     const content = textareaRef.current?.value;
+    const start = "2023-04-04-04";
+    const end = "2023-04-04-05";
     if (!content) return;
     if (!handle) return;
 
@@ -32,7 +34,10 @@ export default function ReplyInput({
       await postTweet({
         handle,
         content,
+        start,
+        end,
         replyToTweetId,
+        
       });
       textareaRef.current.value = "";
       // this triggers the onInput event on the growing textarea
