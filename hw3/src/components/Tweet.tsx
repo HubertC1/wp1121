@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 
-import { BadgeCheck, MessageCircle, Repeat2, Share } from "lucide-react";
+import { BadgeCheck} from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { getAvatar } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 
-import LikeButton from "./LikeButton";
+// import LikeButton from "./LikeButton";
 import TimeText from "./TimeText";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 type TweetProps = {
   username?: string;
@@ -51,9 +51,9 @@ export default function Tweet({
   //   // if any of the username or handle is not valid, open the dialog
   //   // setDialogOpen(!validateUsername(username) || !validateHandle(handle));
   // }, [searchParams]);
-  const isSearched = () => {
-    const searchParam = useSearchParams();
-    const searching = searchParam.get("searching");
+  const IsSearched = () => {
+    const SearchParam = useSearchParams();
+    const searching = SearchParam.get("searching");
     // console.log(searching);
     // console.log(content);
     if (searching === null || searching === ""){
@@ -68,7 +68,7 @@ export default function Tweet({
     }
   }
 
-  const checkSearched = isSearched();
+  const checkSearched = IsSearched();
   console.log(checkSearched);
 
   return (

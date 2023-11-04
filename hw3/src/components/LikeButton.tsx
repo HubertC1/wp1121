@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { EventHandler, MouseEvent } from "react";
 
-import { Heart } from "lucide-react";
+// import { Heart } from "lucide-react";
 
 import useLike from "@/hooks/useLike";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export default function LikeButton({
   const [liked, setLiked] = useState(initialLiked);
   const [likesCount, setLikesCount] = useState(initialLikes);
   const { likeTweet, unlikeTweet, loading } = useLike();
-
+  console.log(likesCount);
   const handleClick: EventHandler<MouseEvent> = async (e) => {
     // since the parent node of the button is a Link, when we click on the
     // button, the Link will also be clicked, which will cause the page to

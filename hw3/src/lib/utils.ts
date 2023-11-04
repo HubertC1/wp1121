@@ -52,12 +52,12 @@ export function validateDate(start?: string | null, end?: string|null){
       return false;
     }
     if (startdate === enddate){
-      var starttime1:number = +start.substring(12,13);
-      var starttime2:number = +start.substring(13,14);
-      var endtime1:number = +end.substring(12,13);
-      var endtime2:number = +end.substring(13,14);
-      var starttime:number = starttime1*10+starttime2;
-      var endtime:number = endtime1*10+endtime2;
+      const starttime1:number = +start.substring(12,13);
+      const starttime2:number = +start.substring(13,14);
+      const endtime1:number = +end.substring(12,13);
+      const endtime2:number = +end.substring(13,14);
+      const starttime:number = starttime1*10+starttime2;
+      const endtime:number = endtime1*10+endtime2;
       console.log(starttime)
       if (endtime < starttime){
         return false;

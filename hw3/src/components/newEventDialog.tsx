@@ -10,18 +10,18 @@ import TweetInput from  "@/components/TweetInput";
 // all components is src/components/ui are lifted from shadcn/ui
 // this is a good set of components built on top of tailwindcss
 // see how to use it here: https://ui.shadcn.com/
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
+  // DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn, validateHandle, validateUsername, validateDate, validateEditing } from "@/lib/utils";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+import { validateHandle, validateUsername, validateDate, validateEditing } from "@/lib/utils";
 
 export default function EventDialog() {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -38,12 +38,15 @@ export default function EventDialog() {
   const [handleError, setHandleError] = useState(false);
   const [eventNameError, setEventNameError] = useState(false);
   const [dateError, setDateError] = useState(false);
-
+  console.log(usernameError);
+  console.log(handleError);
+  console.log(eventNameError);
+  console.log(dateError);
   // check if the username and handle are valid when the component mounts
   // only show the dialog if the username or handle is invalid
   useEffect(() => {
-    const username = searchParams.get("username");
-    const handle = searchParams.get("handle");
+    // const username = searchParams.get("username");
+    // const handle = searchParams.get("handle");
     const editing = searchParams.get("editing");
     // if any of the username or handle is not valid, open the dialog
     setDialogOpen(validateEditing(editing));

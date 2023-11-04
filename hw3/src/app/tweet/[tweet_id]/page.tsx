@@ -4,15 +4,15 @@ import { redirect } from "next/navigation";
 import { eq, desc, sql, and } from "drizzle-orm";
 import {
   ArrowLeft,
-  MessageCircle,
+  // MessageCircle,
   MoreHorizontal,
-  Repeat2,
-  Share,
+  // Repeat2,
+  // Share,
 } from "lucide-react";
 
 import LikeButton from "@/components/LikeButton";
 import ReplyInput from "@/components/ReplyInput";
-import TimeText from "@/components/TimeText";
+// import TimeText from "@/components/TimeText";
 import Tweet from "@/components/Tweet";
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/db";

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-import { ChevronDown } from "lucide-react";
+// import { ChevronDown } from "lucide-react";
 
 import GrowingTextarea from "@/components/GrowingTextarea";
 import UserAvatar from "@/components/UserAvatar";
@@ -15,7 +15,7 @@ import { useRouter,usePathname,useSearchParams } from "next/navigation";
 export default function SearchBar() {
   const { username, handle } = useUserInfo();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const { postTweet, loading } = useTweet();
+  const {loading } = useTweet();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

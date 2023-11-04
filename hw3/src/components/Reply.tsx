@@ -1,14 +1,14 @@
 import Link from "next/link";
 
-import { BadgeCheck, MessageCircle, Repeat2, Share } from "lucide-react";
+import { BadgeCheck} from "lucide-react";
 
 import { Separator } from "@/components/ui/separator";
 import { getAvatar } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
-import LikeButton from "./LikeButton";
+// import LikeButton from "./LikeButton";
 import TimeText from "./TimeText";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 type TweetProps = {
   username?: string;

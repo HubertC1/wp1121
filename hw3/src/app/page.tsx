@@ -4,7 +4,7 @@ import NameDialog from "@/components/NameDialog";
 import EventDialog from "@/components/newEventDialog";
 import SearchBar from "@/components/SearchBar";
 import Tweet from "@/components/Tweet";
-import TweetInput from "@/components/TweetInput";
+// import TweetInput from "@/components/TweetInput";
 import { Separator } from "@/components/ui/separator";
 import { db } from "@/db";
 import { likesTable, tweetsTable, usersTable } from "@/db/schema";
@@ -26,7 +26,7 @@ type HomePageProps = {
 // any where. There are already libraries that use react to render to the terminal,
 // email, PDFs, native mobile apps, 3D objects and even videos.
 export default async function Home({
-  searchParams: { username, handle, searching },
+  searchParams: { username, handle },
 }: HomePageProps) {
   // read the username and handle from the query params and insert the user
   // if needed.
