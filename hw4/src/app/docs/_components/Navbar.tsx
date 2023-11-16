@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
+import ShareDialog from "../[docId]/_components/ShareDialog";
+
 
 import { createDocument, deleteDocument, getDocuments } from "./actions";
 
@@ -47,19 +49,29 @@ async function Navbar() {
           // }}
         />
         <div className="flex w-full justify-between">
-          <h1>Chat</h1>
-          <Button
-            variant={"ghost"}
-            type={"submit"}
+          <div className="py-2">
+            <h1 className="text-sm font-semibold">Chat</h1>
+          </div>
+          {/* <ShareDialog/> */}
+          {/* <form
             className="hover:bg-slate-200"
-          >
-            Add
-          </Button>
+            action={async () => {
+              "use server";
+              const newDocId = await createDocument(userId);
+              revalidatePath("/docs");
+              redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs/${newDocId}`);
+            }}
+          > */}
+            <ShareDialog
+              userId={userId}
+            />    
+          {/* </form> */}
+
           {/* <button>
             <p>Add Chat</p>
           </button> */}
         </div>
-
+{/* 
         <form
           className="w-full hover:bg-slate-200"
           action={async () => {
@@ -76,7 +88,7 @@ async function Navbar() {
             <AiFillFileAdd size={16} />
             <p>Create Document</p>
           </button>
-        </form>
+        </form> */}
       </nav>
       <section className="flex w-full flex-col pt-3">
         {documents.map((doc, i) => {
