@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
@@ -37,6 +38,26 @@ async function Navbar() {
               Sign Out
             </Button>
           </Link>
+        </div>
+        <Input
+          placeholder="Search User"
+          type="search"
+          // onChange={(e) => {
+
+          // }}
+        />
+        <div className="flex w-full justify-between">
+          <h1>Chat</h1>
+          <Button
+            variant={"ghost"}
+            type={"submit"}
+            className="hover:bg-slate-200"
+          >
+            Add
+          </Button>
+          {/* <button>
+            <p>Add Chat</p>
+          </button> */}
         </div>
 
         <form
