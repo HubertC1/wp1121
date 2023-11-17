@@ -3,6 +3,7 @@ import {
   index,
   text,
   pgTable,
+  integer,
   serial,
   uuid,
   varchar,
@@ -95,3 +96,51 @@ export const usersToDocumentsRelations = relations(
     }),
   }),
 );
+
+
+export const messagesTable = pgTable(
+  "messages",
+  {
+    id: serial("id").primaryKey(),
+    displayId: uuid("display_id").defaultRandom().notNull().unique(),
+    content: text("content").notNull(),
+    documentId: uuid("document_id").notNull().references(() => documentsTable.displayId, {
+      onDelete: "cascade",
+    }),
+    userId: uuid("user_id").notNull().references(() => usersTable.displayId, {
+      onDelete: "cascade",
+    }),
+  },
+);
+
+export const messagesRelations = relations(messagesTable, ({ one }) => ({
+  document: one(documentsTable, {
+    fields: [messagesTable.documentId],
+    references: [documentsTable.displayId],
+  }),
+  user: one(usersTable, {
+    fields: [messagesTable.userId],
+    references: [usersTable.displayId],
+  }),
+}));
+
+// export const usersTable = pgTable(
+//   "users",
+//   {
+//     id: serial("id").primaryKey(),
+//     displayId: uuid("display_id").defaultRandom().notNull().unique(),
+//     username: varchar("username", { length: 100 }).notNull(),
+//     email: varchar("email", { length: 100 }).notNull().unique(),
+//     hashedPassword: varchar("hashed_password", { length: 100 }),
+//     provider: varchar("provider", {
+//       length: 100,
+//       enum: ["github", "credentials"],
+//     })
+//       .notNull()
+//       .default("credentials"),
+//   },
+//   (table) => ({
+//     displayIdIndex: index("display_id_index").on(table.displayId),
+//     emailIndex: index("email_index").on(table.email),
+//   }),
+// );

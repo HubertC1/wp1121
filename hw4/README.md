@@ -1,4 +1,6 @@
+
 # Run the project
+
 
 1. Install dependencies
    ```bash
@@ -36,6 +38,9 @@
    yarn dev
    ```
 8. Open http://localhost:3000 in your browser
+ 
+PLEASE USE 2 DIFFERENT BROWSERS FOR EACH ACCOUNT TO SEE IMMEDIATE MESSAGE
+This is because next-auth is not tab-specific, so 2 tabs may not be regarded as 2 different clients.
 
 # Setup Guide
 
