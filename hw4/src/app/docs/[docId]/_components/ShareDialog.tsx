@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
-import { checkAccount, createDocument} from "../../_components/actions";
+import { checkAccount, checkChatbox, createDocument} from "../../_components/actions";
 
 import { addDocumentAuthor, getDocumentAuthors } from "./actions";
 
@@ -48,8 +48,17 @@ async function ShareDialog({ userId }: Props) {
             if (typeof email !== "string") return;
             const accountExists = await(checkAccount(email));
             if (accountExists === false){
+              // alert("user doesn't exist")
+              console.log("user doesn't exist");
               redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
               return;
+            }else{
+              const  chatbotExists = await(checkChatbox(userId,accountExists));
+              if (chatbotExists === true){
+                //alert("chatbox already exists")
+                console.log("chatbox exists");
+                redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+              }
             }
             // if (accountExists === false){
             //   console.log("false!");

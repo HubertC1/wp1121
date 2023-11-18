@@ -67,9 +67,29 @@ export const checkAccount = async (email: string) =>{
   const [user] = await db
     .select({
       id: usersTable.id,
+      displayId: usersTable.displayId,
     })
     .from(usersTable)
     .where(eq(usersTable.email, email))
     .execute();
-  return Boolean(user);
+  return (Boolean(user)===true)?user.displayId:false;
+}
+
+export const checkChatbox = async (sender: string, receiver: string) => {
+  "use server"
+  const docForSender = await db
+    .select({documentId: usersToDocumentsTable.documentId})
+    .from(usersToDocumentsTable)
+    .where(eq(usersToDocumentsTable.userId, sender))
+    .execute();
+  const docForReceiver = await db
+    .select({documentId: usersToDocumentsTable.documentId})
+    .from(usersToDocumentsTable)
+    .where(eq(usersToDocumentsTable.userId, receiver))
+    .execute();
+  const common = docForSender.filter(({documentId})=>
+    docForReceiver.some(doc => doc.documentId === documentId)
+  );
+
+  return common.length > 0;
 }
