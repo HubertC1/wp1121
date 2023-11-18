@@ -12,7 +12,8 @@ import { publicEnv } from "@/lib/env/public";
 import ShareDialog from "../[docId]/_components/ShareDialog";
 
 
-import { createDocument, deleteDocument, getDocuments } from "./actions";
+import { createDocument, deleteDocument, getDocuments, getReceiver } from "./actions";
+import Nametag from "./Nametag";
 
 async function Navbar() {
   const session = await auth();
@@ -104,7 +105,12 @@ async function Navbar() {
                 <div className="flex items-center gap-2">
                   <AiFillFileText />
                   <span className="text-sm font-light ">
-                    {doc.document.title}
+                    {/* {getReceiver(doc.document.displayId, userId)} */}
+                    <Nametag
+                      docId = {doc.document.displayId}
+                    />
+       
+                    {/* {doc.document.title} */}
                   </span>
                 </div>
               </Link>

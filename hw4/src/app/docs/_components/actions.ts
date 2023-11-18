@@ -1,7 +1,8 @@
-import { eq } from "drizzle-orm";
+import { eq, ne, and } from "drizzle-orm";
 
 import { db } from "@/db";
-import { documentsTable, usersToDocumentsTable } from "@/db/schema";
+import { documentsTable, usersTable, usersToDocumentsTable } from "@/db/schema";
+import { notEqual } from "assert";
 
 export const createDocument = async (userId: string) => {
   "use server";
@@ -49,3 +50,14 @@ export const deleteDocument = async (documentId: string) => {
     .where(eq(documentsTable.displayId, documentId));
   return;
 };
+
+export const getReceiver = async (documentId: string, userId: string) =>{
+  "use server";
+  const chatBox = await db.query.usersToDocumentsTable.findFirst({
+    where: and(eq(usersToDocumentsTable.documentId, documentId) ,ne(usersToDocumentsTable.userId, userId)),
+  });
+  const receiver = await db.query.usersTable.findFirst({
+    where: eq(usersTable.displayId, chatBox!.userId),
+  })
+  return receiver!.username;
+}
