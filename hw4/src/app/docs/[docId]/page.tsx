@@ -7,6 +7,7 @@ import { useDocument } from "@/hooks/useDocument";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { auth } from "@/lib/auth";
 
 // const getUser = async() =>{
@@ -24,7 +25,9 @@ function DocPage() {
   const url = usePathname();
   const docId = (url.split('/').pop())!;
   const searchParams = useSearchParams();
-  const user = (searchParams.get("user"))!;
+  const {data:session} = useSession();
+  const userId = session?.user?.id;
+  console.log(userId);
   // const user = getUser();
   const { title, setTitle, content, setContent } = useDocument();
   return (
@@ -49,12 +52,7 @@ function DocPage() {
           className="h-[80vh] w-full outline-0 "
         />
       </section>
-      <ChatRoomInput
-        user = {user}
-        doc = {docId}
-        // user = {typeof(user) === 'string' ? user:"userNotFound"}
-        // doc = {docId}
-      />
+      <ChatRoomInput/>
     </div>
   );
 }

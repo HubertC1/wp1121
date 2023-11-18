@@ -48,9 +48,12 @@ async function ShareDialog({ userId }: Props) {
             const docId = await createDocument(userId);
             const authors = await getDocumentAuthors(docId);
             const result = await addDocumentAuthor(docId, email);
-            if (!result) {
-              redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs/${docId}`);
-            }
+            // if (!result) {
+            //   redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs/${docId}?user:${session!.user!.id}`);
+            // }
+            revalidatePath("/docs");
+            redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs/${docId}`);
+            
           }}
           className="flex flex-row gap-4"
         >

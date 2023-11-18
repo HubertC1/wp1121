@@ -3,23 +3,30 @@
 import { createMessage } from "./actions";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { useSession } from "next-auth/react";
+
 
 type Props = {
     user: string;
     doc: string;
 };
 
-function ChatRoomInput({user, doc}: Props){
-	
+function ChatRoomInput(){
+	const url = usePathname();
+  const {data:session} = useSession();
+  const doc = (url.split('/').pop())!;
+  const user = session?.user?.id;
   const [content, setContent] = useState<string>("");
   const router = useRouter();
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-      return;
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/");
+  //     return;
+  //   }
+  // }, [user, router]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

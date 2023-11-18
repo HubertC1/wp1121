@@ -33,6 +33,7 @@ export async function getDocumentAuthors(docId: string) {
 
 export const addDocumentAuthor = async (docId: string, email: string) => {
   // Find the user by email
+  console.log("added user");
   const [user] = await db
     .select({
       displayId: usersTable.displayId,

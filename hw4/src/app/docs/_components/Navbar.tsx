@@ -99,7 +99,7 @@ async function Navbar() {
             >
               <Link
                 className="grow px-3 py-1"
-                href={`/docs/${doc.document.displayId}?user=${userId}`}
+                href={`/docs/${doc.document.displayId}`}
               >
                 <div className="flex items-center gap-2">
                   <AiFillFileText />
