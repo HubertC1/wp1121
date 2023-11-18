@@ -3,6 +3,7 @@ import { RxAvatar } from "react-icons/rx";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
-import { createDocument} from "../../_components/actions";
+import { checkAccount, createDocument} from "../../_components/actions";
 
 import { addDocumentAuthor, getDocumentAuthors } from "./actions";
 
@@ -45,6 +46,17 @@ async function ShareDialog({ userId }: Props) {
             const email = e.get("email");
             if (!email) return;
             if (typeof email !== "string") return;
+            const accountExists = await(checkAccount(email));
+            if (accountExists === false){
+              redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+              return;
+            }
+            // if (accountExists === false){
+            //   console.log("false!");
+            // }else{
+            //   console.log("true!");
+            // }
+            // return;
             const docId = await createDocument(userId);
             const authors = await getDocumentAuthors(docId);
             const result = await addDocumentAuthor(docId, email);

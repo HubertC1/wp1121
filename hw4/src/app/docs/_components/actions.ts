@@ -61,3 +61,15 @@ export const getReceiver = async (documentId: string, userId: string) =>{
   })
   return receiver!.username;
 }
+
+export const checkAccount = async (email: string) =>{
+  "use server";
+  const [user] = await db
+    .select({
+      id: usersTable.id,
+    })
+    .from(usersTable)
+    .where(eq(usersTable.email, email))
+    .execute();
+  return Boolean(user);
+}
