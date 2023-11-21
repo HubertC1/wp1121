@@ -31,50 +31,51 @@ function DocPage() {
   // const user = getUser();
   const { title, setTitle, content, setContent, sender } = useDocument();
   return (
-    <div className="w-full">
-      {/* <nav className="sticky top-0 flex w-full justify-between p-2 shadow-sm">
-        <input
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          placeholder="Document Title"
-          className="rounded-lg px-2 py-1 text-slate-700 outline-0 focus:bg-slate-100"
-        />
-      </nav> */}
-      {content.map((message, index) =>(
-        <>
-          {
-            (userId === sender[index])?
-            <p>
-              {message}
-            </p>
-            :
-            <p>
-              fuck you
-            </p>
-          }
-        </>
 
-      ))
-      }
-
-      {/* <section className="w-full px-4 py-4">
-        <textarea
-          value={content || ""}
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-          className="h-[80vh] w-full outline-0 "
-        />
-      </section> */}
+    <div className="w-full h-full overflow-hidden flex flex-col shadow-lg">
+      <nav className="w-full shadow-md p-3 text-md font-semibold">Chatroom</nav>
+      <div className="overflow-y-scroll grow">
+        <div className="px-2 pt-4">
+          {content?.map((message, index) => {
+            const isSender = sender[index] === userId;
+            return (
+              <div key={index} className="w-full pt-1">
+                <div
+                  className={`flex flex-row items-end gap-2 ${
+                    isSender && "justify-end"
+                  }`}
+                >
+                  {/* {!isSender && (
+                    <Avatar
+                      displayId={message.senderId}
+                      classname="bg-black text-white w-8 h-8"
+                    />
+                  )} */}
+                  <div
+                    className={`max-w-[60%] rounded-2xl px-3 py-1 leading-6 ${
+                      isSender ? "bg-black text-white" : " bg-gray-200 text-black"
+                    }`}
+                  >
+                    {message}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="p-2">
       <ChatRoomInput
-        content={content}
-        setContent={setContent}
-        sender={sender}
-        // setSender={setSender}
-      />
+          content={content}
+          setContent={setContent}
+          sender={sender}
+          // setSender={setSender}
+        />
+      </div>
     </div>
+
+
+
   );
 }
 
