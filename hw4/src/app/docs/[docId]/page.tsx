@@ -32,7 +32,7 @@ function DocPage() {
   const { title, setTitle, content, setContent } = useDocument();
   return (
     <div className="w-full">
-      <nav className="sticky top-0 flex w-full justify-between p-2 shadow-sm">
+      {/* <nav className="sticky top-0 flex w-full justify-between p-2 shadow-sm">
         <input
           value={title}
           onChange={(e) => {
@@ -41,7 +41,13 @@ function DocPage() {
           placeholder="Document Title"
           className="rounded-lg px-2 py-1 text-slate-700 outline-0 focus:bg-slate-100"
         />
-      </nav>
+      </nav> */}
+      {content.map((message, index) =>(
+        <div>
+          <p>{message}</p>
+        </div>
+      ))
+      }
 
       <section className="w-full px-4 py-4">
         <textarea
@@ -52,7 +58,10 @@ function DocPage() {
           className="h-[80vh] w-full outline-0 "
         />
       </section>
-      <ChatRoomInput/>
+      <ChatRoomInput
+        content={content}
+        setContent={setContent}
+      />
     </div>
   );
 }

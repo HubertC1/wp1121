@@ -13,7 +13,7 @@ export const createDocument = async (userId: string) => {
       .insert(documentsTable)
       .values({
         title: "New Document",
-        content: "This is a new document",
+        content: ["This is a new document"],
       })
       .returning();
     await tx.insert(usersToDocumentsTable).values({

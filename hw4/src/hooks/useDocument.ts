@@ -31,10 +31,19 @@ export const useDocument = () => {
   // [FIX] 2023.11.18 - This memo should compare the debounced values to avoid premature updates to the DB.
   const isSynced = useMemo(() => {
     if (debouncedDocument === null || debouncedDbDocument === null) return true;
-    return (
-        debouncedDocument.title === debouncedDbDocument.title &&
-        debouncedDocument.content === debouncedDbDocument.content
-    );
+    if (debouncedDocument.content.length !== debouncedDbDocument.content.length){
+      return false;
+    }
+    for (let i = 0; i<debouncedDocument.content.length; i++){
+      if (debouncedDocument.content[i] !== debouncedDbDocument.content[i]){
+        return false;
+      }
+    }
+    return true;
+    // return (
+    //     debouncedDocument.title === debouncedDbDocument.title &&
+    //     debouncedDocument.content === debouncedDbDocument.content
+    // );
   }, [debouncedDocument, debouncedDbDocument]);
 
   // When the debounced document changes, update the document
@@ -128,12 +137,12 @@ export const useDocument = () => {
     });
   };
 
-  const content = document?.content || "";
+  const content = document?.content || [""];
   const setContent = (newContent: string) => {
     if (document === null) return;
     setDocument({
       ...document,
-      content: newContent,
+      content: [...content, newContent],
     });
   };
 

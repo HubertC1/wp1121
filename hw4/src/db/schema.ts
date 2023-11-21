@@ -44,7 +44,7 @@ export const documentsTable = pgTable(
     id: serial("id").primaryKey(),
     displayId: uuid("display_id").defaultRandom().notNull().unique(),
     title: varchar("title", { length: 100 }).notNull(),
-    content: text("content").notNull(),
+    content: text("content").array(),
   },
   (table) => ({
     displayIdIndex: index("display_id_index").on(table.displayId),
