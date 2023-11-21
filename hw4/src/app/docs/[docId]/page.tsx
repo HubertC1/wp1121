@@ -29,7 +29,7 @@ function DocPage() {
   const userId = session?.user?.id;
   console.log(userId);
   // const user = getUser();
-  const { title, setTitle, content, setContent } = useDocument();
+  const { title, setTitle, content, setContent, sender } = useDocument();
   return (
     <div className="w-full">
       {/* <nav className="sticky top-0 flex w-full justify-between p-2 shadow-sm">
@@ -43,13 +43,23 @@ function DocPage() {
         />
       </nav> */}
       {content.map((message, index) =>(
-        <div>
-          <p>{message}</p>
-        </div>
+        <>
+          {
+            (userId === sender[index])?
+            <p>
+              {message}
+            </p>
+            :
+            <p>
+              fuck you
+            </p>
+          }
+        </>
+
       ))
       }
 
-      <section className="w-full px-4 py-4">
+      {/* <section className="w-full px-4 py-4">
         <textarea
           value={content || ""}
           onChange={(e) => {
@@ -57,10 +67,12 @@ function DocPage() {
           }}
           className="h-[80vh] w-full outline-0 "
         />
-      </section>
+      </section> */}
       <ChatRoomInput
         content={content}
         setContent={setContent}
+        sender={sender}
+        // setSender={setSender}
       />
     </div>
   );

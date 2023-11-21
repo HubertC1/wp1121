@@ -12,10 +12,12 @@ import { useSession } from "next-auth/react";
 type Props = {
     content: string[],
     // setContent: React.Dispatch<React.SetStateAction<string[]>>;
-    setContent: (newContent: string) => void;
+    setContent: (newContent: string, newSender: string) => void;
+    sender: string[],
+    // setSender: (newSender: string) => void;
 };
 
-function ChatRoomInput({content, setContent}:Props){
+function ChatRoomInput({content, setContent, sender}:Props){
 	const url = usePathname();
   const {data:session} = useSession();
   const doc = (url.split('/').pop())!;
@@ -33,8 +35,12 @@ function ChatRoomInput({content, setContent}:Props){
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!content) return;
+    if (!sender) return;
     if (!user) return;
-    setContent(inputContent);
+    console.log(user);
+    console.log()
+    setContent(inputContent, user);
+    // setSender(user);
     // createMessage(doc, user, content);
     // sendMessage({ content, senderId: user.displayId });
     setInputContent("");

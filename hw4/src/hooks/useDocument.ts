@@ -31,11 +31,11 @@ export const useDocument = () => {
   // [FIX] 2023.11.18 - This memo should compare the debounced values to avoid premature updates to the DB.
   const isSynced = useMemo(() => {
     if (debouncedDocument === null || debouncedDbDocument === null) return true;
-    if (debouncedDocument.content.length !== debouncedDbDocument.content.length){
+    if (debouncedDocument.content.length !== debouncedDbDocument.content.length || debouncedDbDocument.sender.length !== debouncedDbDocument.sender.length){
       return false;
     }
     for (let i = 0; i<debouncedDocument.content.length; i++){
-      if (debouncedDocument.content[i] !== debouncedDbDocument.content[i]){
+      if (debouncedDocument.content[i] !== debouncedDbDocument.content[i] || debouncedDocument.sender[i] !== debouncedDbDocument.sender[i]){
         return false;
       }
     }
@@ -69,6 +69,7 @@ export const useDocument = () => {
         body: JSON.stringify({
           title: debouncedDocument.title,
           content: debouncedDocument.content,
+          sender: debouncedDocument.sender,
         }),
       });
       if (!res.ok) {
@@ -138,13 +139,24 @@ export const useDocument = () => {
   };
 
   const content = document?.content || [""];
-  const setContent = (newContent: string) => {
+  const sender = document?.sender || [""];
+  const setContent = (newContent: string, newSender: string) => {
     if (document === null) return;
     setDocument({
       ...document,
       content: [...content, newContent],
+      sender: [...sender, newSender],
     });
   };
+
+
+  // const setSender = (newSender: string) => {
+    // if (document === null) return;
+    // setDocument({
+    //   ...document,
+    //   sender: [...sender, newSender],
+    // })
+  // }
 
   return {
     documentId,
@@ -153,5 +165,6 @@ export const useDocument = () => {
     setTitle,
     content,
     setContent,
+    sender,
   };
 };
