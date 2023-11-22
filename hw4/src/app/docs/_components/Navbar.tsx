@@ -1,4 +1,4 @@
-import { AiFillDelete, AiFillFileAdd, AiFillFileText } from "react-icons/ai";
+import { AiFillDelete, AiFillFileText } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 
 import { revalidatePath } from "next/cache";
@@ -12,7 +12,7 @@ import { publicEnv } from "@/lib/env/public";
 import ShareDialog from "../[docId]/_components/ShareDialog";
 
 
-import { createDocument, deleteDocument, getDocuments, getReceiver } from "./actions";
+import {  deleteDocument, getDocuments } from "./actions";
 import Nametag from "./Nametag";
 
 async function Navbar() {

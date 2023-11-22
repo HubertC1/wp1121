@@ -1,18 +1,12 @@
-import { AiFillDelete, AiFillFileAdd, AiFillFileText } from "react-icons/ai";
-import { RxAvatar } from "react-icons/rx";
 
-import { revalidatePath } from "next/cache";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
-import ShareDialog from "../[docId]/_components/ShareDialog";
 
 
-import { createDocument, deleteDocument, getDocuments, getReceiver } from "./actions";
+import { getReceiver } from "./actions";
 
 type Props = {
     docId: string;

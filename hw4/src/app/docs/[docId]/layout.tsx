@@ -1,4 +1,4 @@
-import ShareDialog from "./_components/ShareDialog";
+// import ShareDialog from "./_components/ShareDialog";
 
 type Props = {
   children: React.ReactNode;
@@ -6,6 +6,7 @@ type Props = {
 };
 
 function DocEditorLayout({ children, params }: Props) {
+  console.log(params);
   return (
     <div className="w-full">
       {children}

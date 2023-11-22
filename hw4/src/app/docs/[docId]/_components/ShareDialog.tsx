@@ -1,4 +1,4 @@
-import { RxAvatar } from "react-icons/rx";
+// import { RxAvatar } from "react-icons/rx";
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -73,6 +73,8 @@ async function ShareDialog({ userId }: Props) {
             const docId = await createDocument(userId);
             const authors = await getDocumentAuthors(docId);
             const result = await addDocumentAuthor(docId, email);
+            console.log(authors);
+            console.log(result);
             // if (!result) {
             //   redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs/${docId}?user:${session!.user!.id}`);
             // }

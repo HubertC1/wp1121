@@ -1,15 +1,12 @@
 "use client";
  
-import { NextResponse, type NextRequest } from "next/server";
+// import { NextResponse, type NextRequest } from "next/server";
 import ChatRoomInput from "./_components/chatIpnut";
-import { getDocumentAuthors } from "./_components/actions";
+// import { getDocumentAuthors } from "./_components/actions";
 import { useDocument } from "@/hooks/useDocument";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import { auth } from "@/lib/auth";
+// import { auth } from "@/lib/auth";
 
 // const getUser = async() =>{
 //   const session = await auth();
@@ -21,16 +18,16 @@ import { auth } from "@/lib/auth";
 // }
 
 function DocPage() {
-  const router = useRouter();
+  // const router = useRouter();
   // const docId = typeof router.query.docId === 'string' ? router.query.docId : 'default_id';
-  const url = usePathname();
-  const docId = (url.split('/').pop())!;
-  const searchParams = useSearchParams();
+  // const url = usePathname();
+  // const docId = (url.split('/').pop())!;
+  // const searchParams = useSearchParams();
   const {data:session} = useSession();
   const userId = session?.user?.id;
   console.log(userId);
   // const user = getUser();
-  const { title, setTitle, content, setContent, sender } = useDocument();
+  const { content, setContent, sender } = useDocument();
   return (
 
     <div className="w-full h-full overflow-hidden flex flex-col shadow-lg">

@@ -3,7 +3,6 @@ import {
   index,
   text,
   pgTable,
-  integer,
   serial,
   uuid,
   varchar,

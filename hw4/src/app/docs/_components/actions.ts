@@ -2,7 +2,6 @@ import { eq, ne, and } from "drizzle-orm";
 
 import { db } from "@/db";
 import { documentsTable, usersTable, usersToDocumentsTable } from "@/db/schema";
-import { notEqual } from "assert";
 
 export const createDocument = async (userId: string) => {
   "use server";

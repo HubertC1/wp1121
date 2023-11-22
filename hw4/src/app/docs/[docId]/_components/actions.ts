@@ -2,7 +2,7 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "@/db";
-import { usersTable, usersToDocumentsTable, messagesTable, documentsTable } from "@/db/schema";
+import { usersTable, usersToDocumentsTable, messagesTable } from "@/db/schema";
 
 export async function getDocumentAuthors(docId: string) {
   const dbAuthors = await db.query.usersToDocumentsTable.findMany({

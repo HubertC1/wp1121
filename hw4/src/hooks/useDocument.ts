@@ -129,14 +129,14 @@ export const useDocument = () => {
     fetchDocument();
   }, [documentId, router]);
 
-  const title = document?.title || "";
-  const setTitle = (newTitle: string) => {
-    if (document === null) return;
-    setDocument({
-      ...document,
-      title: newTitle,
-    });
-  };
+  // const title = document?.title || "";
+  // const setTitle = (newTitle: string) => {
+  //   if (document === null) return;
+  //   setDocument({
+  //     ...document,
+  //     title: newTitle,
+  //   });
+  // };
 
   const content = document?.content || [""];
   const sender = document?.sender || [""];
@@ -161,8 +161,6 @@ export const useDocument = () => {
   return {
     documentId,
     document,
-    title,
-    setTitle,
     content,
     setContent,
     sender,
