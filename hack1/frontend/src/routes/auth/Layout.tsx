@@ -70,15 +70,17 @@ const AuthLayout = () => {
               /* Each `NavLink` should use `title` as its content. */
               /* Reference: https://reactrouter.com/en/main/components/nav-link */
               /*            https://ui.shadcn.com/docs/components/tabs#usage */
-              <TabsTrigger
-                asChild
-                key={tab.title}
-                value=""
-                className="last-of-type:border-r-0"
-                data-testid={`tab-${tab.path}`}
-              >
-                <NavLink to="" />
-              </TabsTrigger>
+              <TabsTrigger 
+              asChild 
+              key={tab.title} 
+              value={tab.path} 
+              className="last-of-type:border-r-0"
+              data-testid={`tab-${tab.path}`}
+            >
+              <NavLink to={tab.path} end>
+                {tab.title}
+              </NavLink>
+            </TabsTrigger>
               /* End of TODO 1.3 */
             ))}
           </TabsList>
@@ -90,8 +92,15 @@ const AuthLayout = () => {
             {/* The logo should be vscoddit.svg in the public folder. */}
             {/* The logo should have alt text "VSCoddit Logo". */}
             {/* The title should be "VSCoddit" */}
-            <img data-testid="header-logo" className="h-5 w-5 brightness-200" />
-            <span data-testid="header-title" />
+            {/* Add a logo to the left of the title. */}
+            <img 
+              src="/vscoddit.svg"
+              alt="VSCoddit Logo" 
+              className="h-5 w-5 brightness-200" 
+              data-testid="header-logo"
+            />
+            {/* The title should be "VSCoddit" */}
+            <span className="your-title-classname" data-testid="header-title">VSCoddit</span>
             {/* END of TODO 1.1 */}
           </CardTitle>
           <CardDescription>
@@ -115,6 +124,10 @@ const AuthLayout = () => {
                 type="text"
                 name="username"
                 autoComplete="username"
+                placeholder='Enter Username'
+                required
+                value={username}
+                onChange={setUsername()}
               />
               {/* End of TODO 1.4 */}
             </div>
@@ -131,6 +144,9 @@ const AuthLayout = () => {
                 type="password"
                 name="password"
                 autoComplete="current-password"
+                placeholder='Enter Password'
+                required
+                value={password}
               />
               {/* End of TODO 1.4 */}
             </div>

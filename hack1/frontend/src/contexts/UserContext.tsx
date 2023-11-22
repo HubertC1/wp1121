@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   type PropsWithChildren,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -39,6 +40,11 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
   /*            https://reactrouter.com/en/6.16.0/hooks/use-location */
   /*            https://github.com/remix-run/history/blob/main/docs/api-reference.md#location */
 
+  useEffect(() => {
+    if (!user && !location.pathname.includes('/login')) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
   /* Reminder: Don't import this useEffect hook if you are tired of being redirected to the login page. */
   /* Warning: But remember to add it back before submitting your work. */
   /* End of TODO 1.2 */
