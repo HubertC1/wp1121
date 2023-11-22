@@ -43,6 +43,7 @@
 This is because next-auth is not tab-specific, so 2 tabs may not be regarded as 2 different clients.
 * If the login page gets stuck, please reload. This might be due to the compilation being undone.
 
+感謝同學耐心跑完，這次搜尋功能和收回等等功能不完善，請見諒嗚嗚
 
 
 # Setup Guide
