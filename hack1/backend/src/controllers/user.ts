@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { Schema } from 'mongoose';
 import { ErrorResponse, asyncWrapper } from '@/error';
 import UserModel from '@/models/user';
-// import {genericErrorHandler} from "../error.ts"
 
 /**
  * Get all users
@@ -30,18 +29,6 @@ export const createUser = asyncWrapper(
     req: Request<{}, {}, User.Post.Payload>,
     res: Response<User.Post.Response<Schema.Types.ObjectId>>,
   ) => {
-    try {
-      const {username, password} = req.body;
-      const user = await UserModel.create({
-        username,
-        password
-      });
-
-      return res.status(201).json(user);
-    }catch(error){
-      console.error(error);
-      // res.status(500).json({error})
-    }
     /* TODO 1.5: Ensure User Registration Functions Properly (8%) */
     /* Create new user using `UserModel` */
     /* Return 201 with new user */

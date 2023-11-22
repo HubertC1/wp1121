@@ -78,7 +78,7 @@ export const PostsProvider = ({ children }: PropsWithChildren) => {
   ) => {
     if (posts === null || user === null) return;
     if (vote === 'upvote') {
-      // handle upvotesf
+      // handle upvotes
     } else if (vote === 'downvote') {
       // handle downvotes
     }

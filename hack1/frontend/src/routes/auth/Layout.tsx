@@ -40,7 +40,6 @@ const AuthLayout = () => {
     /* What happens if we don't prevent the default behavior? */
     if (location.pathname === '/login') {
       login(username, password);
-      // login('test','123')
       /* Replace the above line with the following line if you want to test other TODOs in this hackathon. */
       // login('test', '123');
       /* Warning: Remember to change it back if you want to test the login functionality. */
@@ -52,16 +51,7 @@ const AuthLayout = () => {
       /* Here, a toast is a small, non-blocking notification pop-up. */
       /* They can be created via the `toast` function provided by `useToast()` */
       /* Reference: https://ui.shadcn.com/docs/components/toast#usage */
-      if (password !== confirmPassword){
-          
-          toast({
-            title:"Passwords do not match",
-            description:"Passwords do not match",
-          })
-      
 
-        // alert("Passwords do not match");
-      }
       /* End of TODO 1.5 */
       register(username, password);
     }
@@ -77,19 +67,17 @@ const AuthLayout = () => {
               /* Each `TabsTrigger` should has a `value` the same as corresponding the pathname. */
               /* Inside each `TabsTrigger`, there should be a `NavLink` component. */
               /* You can think of `NavLink`'s `to` prop as the anchor's `href` attribute. */
-              /* Each `NavLink` fshould use `title` as its content. */
+              /* Each `NavLink` should use `title` as its content. */
               /* Reference: https://reactrouter.com/en/main/components/nav-link */
               /*            https://ui.shadcn.com/docs/components/tabs#usage */
               <TabsTrigger
                 asChild
                 key={tab.title}
-                value={tab.path}
+                value=""
                 className="last-of-type:border-r-0"
                 data-testid={`tab-${tab.path}`}
               >
-                <NavLink to={"/"+tab.path} >
-                  {tab.title}
-                </NavLink>
+                <NavLink to="" />
               </TabsTrigger>
               /* End of TODO 1.3 */
             ))}
@@ -97,10 +85,6 @@ const AuthLayout = () => {
         </Tabs>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 tracking-normal">
-            {/* <title>VSCoddit</title> */}
-            
-            <img src="../../../vscoddit.svg" alt="VSCoddit Logo" className="h-5 w-5 brightness-200" />
-            <h1>VSCoddit</h1>
             {/* TODO 1.1: Title and Login Page Title (5%) */}
             {/* Add a logo to the left of the title. */}
             {/* The logo should be vscoddit.svg in the public folder. */}
@@ -130,9 +114,7 @@ const AuthLayout = () => {
                 data-testid="input-username"
                 type="text"
                 name="username"
-                autoComplete={username}
-                placeholder='Enter Username'
-                required={true}
+                autoComplete="username"
               />
               {/* End of TODO 1.4 */}
             </div>
@@ -148,9 +130,7 @@ const AuthLayout = () => {
                 data-testid="input-password"
                 type="password"
                 name="password"
-                autoComplete={password}
-                placeholder='Enter Password'
-                required={true}
+                autoComplete="current-password"
               />
               {/* End of TODO 1.4 */}
             </div>
@@ -173,8 +153,6 @@ const AuthLayout = () => {
                 type="password"
                 name="confirm-password"
                 autoComplete="new-password"
-                placeholder='Confirm Password'
-                required={location.pathname==='/register'}
               />
               {/* End of TODO 1.5 */}
             </div>

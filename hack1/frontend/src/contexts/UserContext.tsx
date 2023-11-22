@@ -2,7 +2,6 @@ import {
   createContext,
   useContext,
   useState,
-  useEffect,
   type PropsWithChildren,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -32,14 +31,6 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
   const location = useLocation();
   const { toast } = useToast();
 
-  useEffect(()=>{
-    if (authenticated === false){
-      if (location.pathname !== "/login" && location.pathname !== "/register"){
-        navigate("/login");
-      }
-    }
-
-  },[location]);
   /* TODO 1.2: Redirect to Login Page (5%) */
   /* Add a useEffect hook that redirects the user to the login page if they are not authenticated. */
   /* Only redirect if the user is not on the login or register page. */
