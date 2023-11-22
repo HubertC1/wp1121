@@ -50,14 +50,18 @@ async function ShareDialog({ userId }: Props) {
             if (accountExists === false){
               // alert("user doesn't exist")
               console.log("user doesn't exist");
-              redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+              // redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+              redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/noSuchUser`);
+              
+              
               return;
             }else{
               const  chatbotExists = await(checkChatbox(userId,accountExists));
               if (chatbotExists === true){
                 //alert("chatbox already exists")
                 console.log("chatbox exists");
-                redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+                // redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+                redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/duplicateFriend`);
               }
             }
             // if (accountExists === false){

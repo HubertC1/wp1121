@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+
 import { auth } from "@/lib/auth";
 
 // const getUser = async() =>{
@@ -33,6 +34,7 @@ function DocPage() {
   return (
 
     <div className="w-full h-full overflow-hidden flex flex-col shadow-lg">
+
       <nav className="w-full shadow-md p-3 text-md font-semibold">Chatroom</nav>
       <div className="overflow-y-scroll grow">
         <div className="px-2 pt-4">

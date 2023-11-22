@@ -39,8 +39,11 @@
    ```
 8. Open http://localhost:3000 in your browser
  
-PLEASE USE 2 DIFFERENT BROWSERS FOR EACH ACCOUNT TO SEE IMMEDIATE MESSAGE
+* PLEASE USE 2 DIFFERENT BROWSERS FOR EACH ACCOUNT TO SEE IMMEDIATE MESSAGE
 This is because next-auth is not tab-specific, so 2 tabs may not be regarded as 2 different clients.
+* If the login page gets stuck, please reload. This might be due to the compilation being undone.
+
+
 
 # Setup Guide
 
