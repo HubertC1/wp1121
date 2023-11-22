@@ -6,6 +6,10 @@
    ```bash
    yarn
    ```
+If you see "node" is incompatible... error, please type:
+```bash
+nvm install 18.17.0
+```
 2. Get Pusher credentials
    Please refer to the [Pusher Setup](#pusher-setup) section for more details.
 
