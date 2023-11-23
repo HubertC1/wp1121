@@ -88,6 +88,10 @@ const updateTaskCmpleteSchema = z.object({
   completed: z.boolean(),
 });
 
+  // TODO: 9. Update the task's `completed` column
+
+  // TODO: 9. end|||
+
 export async function updateTaskComplete(
   taskId: string,
   projectId: string,
@@ -98,10 +102,15 @@ export async function updateTaskComplete(
     taskId,
     completed,
   });
+  const [updatedTask] = await db
+  .update(tasksTable)
+  .set({
+    projectId: projectId,
+    completed: completed,
+  })
+  .where(eq(tasksTable.displayId, taskId))
+  .returning()
 
-  // TODO: 9. Update the task's `completed` column
-
-  // TODO: 9. end
 
   revalidatePath(`/projects/${projectId}`);
 }
