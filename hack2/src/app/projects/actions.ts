@@ -7,7 +7,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { db } from "@/db";
-import { projectsTable, usersToProjectsTable } from "@/db/schema";
+import { projectsTable, usersTable, usersToProjectsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { publicEnv } from "@/lib/env/public";
 import type { Project, User } from "@/lib/types";
@@ -65,7 +65,7 @@ export async function createProject(
   });
 
   // TODO: 6. Update the navbar for the user's projects
-
+  revalidatePath("/projects");
   // TODO: 6. end
 
   return newProject;
@@ -89,4 +89,11 @@ export async function getProjects(userId: User["id"]) {
     name: item.project.name,
   }));
   return projects;
+}
+
+export async function getName(userId: User["id"]){
+  const tmpName = await db.query.usersTable.findFirst({
+    where: eq(usersTable.displayId, userId),
+  })
+  return tmpName?.name;
 }
