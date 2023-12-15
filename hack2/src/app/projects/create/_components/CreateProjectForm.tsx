@@ -14,8 +14,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import type { Project } from "@/lib/types";
-import { publicEnv } from "@/lib/env/public";
-import {redirect} from "next/navigation"
+// import { publicEnv } from "@/lib/env/public";
+// import {redirect} from "next/navigation"
 
 export default function CreateProjectForm() {
   const [projectName, setProjectName] = useState<Project["name"]>("");
