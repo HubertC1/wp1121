@@ -9,7 +9,10 @@ import { pusherServer } from "@/lib/pusher/server";
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("I'm in POSTT");
     const session = await auth();
+    console.log("SESSSSION");
+    console.log(session);
     if (!session?.user?.email || !session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

@@ -93,6 +93,8 @@ export const useDocument = () => {
 
     try {
       const channel = pusherClient.subscribe(channelName);
+      console.log("CHANNEL COUNT");
+      console.log(channel);
       channel.bind("doc:update", ({ senderId, document: received_document }: PusherPayload) => {
         if (senderId === userId) {
           return;
