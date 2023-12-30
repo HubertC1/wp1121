@@ -1,0 +1,28 @@
+delete document button
+              <form
+                className="hidden px-2 text-slate-400 hover:text-red-400 group-hover:flex"
+                action={async () => {
+                  "use server";
+                  const docId = doc.document.displayId;
+                  await deleteDocument(docId);
+                  revalidatePath("/docs");
+                  redirect(`${publicEnv.NEXT_PUBLIC_BASE_URL}/docs`);
+                }}
+              >
+                <button type={"submit"}>
+                  <AiFillDelete size={16} />
+                </button>
+              </form>
+
+title
+        <nav className="sticky top-0 flex w-full justify-between p-2 shadow-sm ml-2">
+          <input
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            placeholder="Document Title"
+            className="rounded-lg h-10 px-2 py-1 text-slate-700 outline-0 focus:bg-slate-100 text-2xl"
+          />
+
+        </nav>
